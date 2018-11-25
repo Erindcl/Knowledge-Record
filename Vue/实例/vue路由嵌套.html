@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style>
+		.v-link-active{
+			font-size: 20px;
+			color: #f60;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li>
+				<router-link to="/home">主页</router-link>
+			</li>
+			<li>
+				<router-link to="/news">新闻</router-link>
+			</li>
+		</ul>
+		<div>
+			<router-view></router-view>
+		</div>	
+	</div>
+
+	<template id="home">
+		<div>
+			<h3>我是主页</h3>
+			<div>
+				<router-link to="/home/login">登录</router-link>
+				<router-link to="/home/reg">注册</router-link>
+			</div>
+			<router-view></router-view>
+		</div>
+	</template>
+	<template id="news">
+			<h3>我是新闻</h3>
+	</template>
+	
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<script>
+
+		const router = new VueRouter({
+		  routes: [
+		    {   path: '/home', component: {
+					template:'#home'
+				} ,
+		    	children: [
+		    		{	path: '/home/login', component:{
+							template:'<strong>登录信息</strong>'
+						}
+					},
+					{	path: '/home/reg', component:{
+							template:'<strong>注册信息</strong>'
+						}
+					}
+		    	]
+			},
+		  	{   path: '/news', component: {
+					template:'#news'
+				}  
+			}
+		  ]
+		})
+
+		const app = new Vue({
+		  router
+		}).$mount('#box')
+	</script>
+</body>
+</html>

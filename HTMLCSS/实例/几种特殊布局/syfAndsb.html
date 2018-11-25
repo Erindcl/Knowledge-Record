@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  /* 圣杯布局 */
+    /* #contain{
+      padding: 0 200px;
+    }
+    #main{
+      width: 100%;
+      height: 400px;
+      background: sandybrown;
+      position: relative;
+      float: left;
+    }
+    #left{
+      height: 400px;
+      width: 200px;
+      left:-200px;
+      position: relative;
+      float: left;
+      background: slateblue;
+      margin-left: -100%;
+    }
+    #right{
+      height: 400px;
+      width: 200px;
+      right:-200px;
+      position: relative;
+      float: left;
+      margin-left: -200px;
+      background: salmon;
+    } */
+  /* 双飞翼布局 */
+    #main{
+      width: 100%;
+      height: 400px;
+      background: sandybrown;
+      float: left;
+    }
+    #main_inner{
+      margin: 0 200px;
+    }
+    #left{
+      height: 400px;
+      width: 200px;
+      float: left;
+      background: slateblue;
+      margin-left: -100%;
+    }
+    #right{
+      height: 400px;
+      width: 200px;
+      float: left;
+      margin-left: -200px;
+      background: salmon;
+    }
+  
+  </style>
+</head>
+<body>
+  <!-- 圣杯布局 -->
+  <!-- <div id="contain">
+    <div id="main"></div>
+    <div id="left"></div>
+    <div id="right"></div>
+  </div> -->
+  <!-- 双飞翼布局 -->
+  <div id="contain">
+      <div id="main">
+        <div id="main_inner"></div>
+      </div>
+      <div id="left"></div>
+      <div id="right"></div>
+    </div>
+</body>
+</html>

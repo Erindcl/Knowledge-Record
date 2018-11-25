@@ -1,0 +1,277 @@
+
+我叫邓彩莲，现在就读与浙江科技学院理学院，就读的专业是信息与计算科学 应用软件方向，从大一开始自学前端至今，能熟练的使用HTML CSS JS进行网站开发，对H5 CSS3 响应式布局有一定的了解，利用过jQuery Bootstrap Amaze UI Vue等框架进行开发。此外还了解hybrid开发和es6知识。在校期间有老师指导，与自己的小团队做过一两个项目并参加了竞赛。我负责的一项国创申报成功，现在还在一步步的去完成它。
+
+
+HBuilder  h5编辑器
+
+APP开发
+	Hybrid App  混合模式移动应用
+	Web App  基于Web的系统和应用
+	Native App  原生移动应用  （native开发就是原生开发
+
+WebPack   模块打包机
+	Webpack的工作方式是：把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包为一个（或多个）浏览器可识别的JavaScript文件。
+  安装
+	//全局安装
+	npm install -g webpack
+	//安装到你的项目目录
+	npm install --save-dev webpack
+
+  学习资料地址：https://segmentfault.com/a/1190000006178770
+
+Babel其实是一个编译JavaScript的平台，它可以编译代码帮你达到以下目的：
+	让你能使用最新的JavaScript代码（ES6，ES7...），而不用管新标准是否被当前使用的浏览器完全支持；
+	让你能使用基于JavaScript进行了拓展的语言，比如React的JSX；
+	用得最多的是解析Es6的babel-env-preset包和解析JSX的babel-preset-react包
+
+	一次性安装这些依赖包   npm一次性安装多个依赖模块，模块之间用空格隔开
+		npm install --save-dev babel-core babel-loader babel-preset-env babel-preset-react
+
+利于hbuilder将vue项目打包成移动app
+	执行npm run build之后生成dist文件夹
+	打开HBuilder，文件->打开目录，选择刚才生成的dist目录，输入项目名称，点击完成
+	右键菜单选择‘转换成移动‘转换成移动App’
+	利用HBuilder连接真机运行或者发行成为原生app
+
+了解W3C 标准
+
+
+对表现与数据分离、Web 语义化等有较好的理解
+
+	表现：顾名思义，就是表达出来的现象，在前端来看，就是html+css，就是平常所看到的的网页的架子呗； 
+	数据：一般是从后端数据库或从哪爬过来的数据，然后在前台显示出来，即是网页中各个结构上的内容； 
+	表现与数据分离就是将结构与数据分开，vue中使用v-model v-text v-html实现数据绑定,修改时只用修改data属性里面的数据，就不用在结构中去做修改，这样更利于前后台数据交互的操作。像之前的ajax。。。
+
+
+	语义化的核心：让程序读懂网页，而非让人去读懂代码。人主需要关注界面即可，与语义化的关系不大。
+	1、让程序知道网页讲的是什么？<title><description>
+	2、让程序读懂页面上的每一模块的大致功能？方案一：使用Html5的内容分区标签：<article><aside><header><footer><nav>...方案二：使用惯用的CSS选择器（class、id）命名:content .container,sidebar
+	3、让程序了解页面上讲的具体内容？针对每一种事物，建立一个通用的模版，每个类型的数据都填充到对应的模块。
+
+	我所理解的Web语义化有三个阶段。
+	1、浏览器和W3C组织推出的如h1~h6、thead、ul、ol的HTML标签，用于在Web页面中组织对应的内容，如网页标题、表头、无序、有序列表，以达到更方便的协作及传播互联网内容。搜索引擎很好的利用了这些语义化标签抓取内容，又鉴于搜索引擎的巨大流量推荐，Web前端不得不考虑SEO，从而两者实现有益的循环，共同推进着语义化标签的使用。
+	2、但Web的发展超乎想象，起初定义的HTML语义化标签，不足以实现对Web页面各个部分的功能或位置描述，所以Web前端人员利用HTML标签的id和class属性，进一步对HTML标签进行描述，如对页脚HTML标签添加如id="footer"或者class="footer"的属性（值），以“无声”的方式在不同的前端程序员或者前后端程序员间实现交流。
+	3、W3C组织意识到了之前HTML版本的不足，推出的HTML5进一步推进了Web语义化发展，采用了诸如footer、section等语义化标签，弥补了采用id="footer"或者class="footer"形式的不足，以更好的推动Web的发展。
+
+了解各主流浏览器间的兼容性问题
+
+	不同浏览器的标签默认的margin和padding不同
+	处理：*{ margin:0; padding:0; }
+	清除浮动：
+    .clear{
+	  clear: both;
+	}
+	.clear:after{
+	  content: "";
+	  clear: both;
+	  height: 0;
+	  display: block;
+	}
+    盒子模型
+    	W3C标准盒模型
+    		元素width/height=content的宽(高)度
+		IE传统下盒模型（IE6以下，不包含IE6版本
+			元素width/height=content的宽(高)度+padding+border
+		box-sizing: content-box(默认值，其让元素维持W3C的标准盒模型) | border-box(IE传统的盒模型) | inherit
+	事件监听
+		支持w3c标准的浏览器
+			addEventListener(event,fn,useCapture)  useCapture：为一个布尔值 用来设置事件是在事件捕获时执行，还是事件冒泡时执行
+		不兼容W3C的浏览器(IE)
+			attachEvent(event,fn)  默认是在事件冒泡时执行的
+		综上处理事件使把useCapture设置为false是比较安全，也实现兼容浏览器的效果
+	阻止事件的默认行为，例如click <a>后的跳转~
+		在W3c中，使用preventDefault（）方法；
+		在IE下设置window.event.returnValue = false;
+
+fr 单位
+	css布局中 width减去固定宽度剩余宽度按fr前的值等比分配
+	如：grid-template-columns: 1fr 50px 1fr 1fr;
+		fr 单位的可用空间表示减去50px以后的空间大小
+
+event.preventDefault()  阻止与事件关联的默认动作 如submit
+参数中的$event来代表原来的event对象
+
+e.currentTarget指的是注册了事件监听器的对象，而e.target指的是该对象里的子对象，也是触发这个事件的对象
+
+事件捕获
+	当你使用事件捕获时，父级元素先触发，子级元素后触发，即div先触发，p后触发。
+事件冒泡
+	当你使用事件冒泡时，子级元素先触发，父级元素后触发，即p先触发，div后触发。
+
+classList
+	页面DOM里的每个节点上都有一个classList对象，可使用该对象的方法新增、删除、修改节点上的CSS类
+	如：
+		document.getElementById("myDIV").classList.add("mystyle");  为div添加样式
+	等等等
+
+两种vue实例定义
+
+	new Vue({
+	  el: '#app',
+	  router,
+	  store,
+	  template: '<App/>',
+	  components: { App }  // vue1.0的写法
+	})
+
+	new Vue({
+	  router: router,
+	  el: '#app',
+	  store: store,
+	  render: (h) => h(App)  // vue2.0的写法  两者等价
+	})
+
+vue项目文档结构
+	static
+		各页面模块使用的图片等
+	src
+		main.js   入口配置文件
+			引用插件或组件  方法：import加vue.use()
+			引入路由文件 可同时配置路由
+			引入入口文件
+			定义vue实例
+				new Vue({
+				  router: router,
+				  el: '#app',
+				  store: store,
+				  render: (h) => h(App)  // vue2.0的写法  两者等价
+				})
+
+		App.vue
+			入口vue，设置首页显示的东西，一般有多个router-link和router-view
+
+axios格式
+    axios.post('http://192.168.2.119:8000/ssm01/user/login', data, {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            }
+          })
+            .then(function (data) {
+              console.log(data)
+              if (data === '登陆成功') {
+                this.noticeText = '登陆成功'
+                this.turnOrNot = true
+                this.aHref = 'http://localhost:8080/#/index'
+              } else {
+                this.noticeText = data
+              }
+              this.showModalValue = 'modal-alter'
+              console.log(data.data)
+              if (data.data.errno === 0) {
+                console.log('上传成功')
+              }
+            })
+            .catch(function (err) {
+              console.log(err)
+            })
+
+点击父组件设置isShow的值，传给子组件，通过判断isShow的值控制子组件是否显示
+如果子组件显示则显示父组件传过来的noticeConten	
+	子组件：设置他想要从父组件那胡得的数据写在props中
+	父组件：调用子组件像这样 <xxx :m='message'></xxx>
+子组件提交数据给父组件显示
+	子组件：触发函数调用this.$emit('事件名', 传递的数据)
+	父组件：在调用子组件是设置 <xxx @事件名='getVal'></xxx> 注：getVal(val){this.val=val} 为method内一函数
+
+浏览器内核
+	分为两部分，一是指渲染引擎（负责对网页语法的解释（如HTML）并渲染（CSS）网页），二指JS引擎(解析和执行 javascript 来实现网页的动态效果)，更侧重于指渲染引擎
+	主流内核及其代表： 
+		Trident内核：IE 360浏览器 腾讯浏览器（只用于windows平台，不开源
+		Gecko内核：Firefox （开源，跨平台使用，在Microsoft Windows、Linux、MacOS X等操作系统都能使用
+		Webkit内核：Safari 曾经Chrome（开源
+		Blik：Chrome Opera （基于webkit Google 与 Opera Software 共同开发
+
+Doctype的作用是告诉浏览器按照何种规范解析页面
+
+link和@import的区别
+	link 引用 CSS 时，在页面载入时同时加载； @import 需要页面网页完全载入以后加载。
+	link 是 XHTML 标签，无兼容问题； @import 是在 CSS2.1 提出的，低版本的浏览器不支持。
+	link 支持使用 Javascript 控制 DOM 去改变样式；而 @import 不支持
+
+简述一下src与href的区别
+	src用于替换当前元素src是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置；在请求 src 资源时会将其指向的资源下载并应用到文档内，例如 js 脚本， img 图片和 frame 等元素。
+	href 用于在当前文档和引用资源之间确立联系。
+
+弹性布局
+	容器属性：
+		flex-direction
+		flex-wrap
+		justify-content  项目在主轴（横向）上的对齐方式
+		align-items   项目在交叉（纵向）轴上的对齐方式
+		align-content
+	项目属性：
+		order 项目的排列顺序
+		flex-grow  项目放大比例
+		flex-shrink  项目的缩小比例
+		flex-basis  分配空余空间时 项目占用的主轴空间
+		flex   前者结合
+		align-self 设置单个项目的对齐方式
+
+
+MV*包括MVC、MVP、MVVM
+MVVM框架由Model、View、ViewModel构成。
+Model指的是数据，在前端对应的是JavaScript对象。
+View指的是视图，在前端对应的是DOM
+ViewModel观察Model和View的变化来做更新，实现了数据的双向绑定。
+前端MVVM框架主要包括：angularJS、reactJS、VueJS
+
+
+前端性能优化
+	减少HTTP请求，将外部CSS、JS文件压缩，更直接的简化页面
+	外部脚本至于文档底部，如果提前加载脚本文件会导致，页面其他资源加载处于阻塞状态，影响整个页面的加载速度，从而影响用户的体验感
+	CSS放在head中，若将CSS放在body中，会导致还未下载和解析CSS文件就开始渲染页面，就有可能出现也面从无CSS样式跳转到有CSS样式，用户体验不好
+	图片采用base64编码 在线图片转base64编码
+
+
+与项目有关的问题
+	项目介绍  所用前端技术  实现哪些功能  如何实现  开发过程中遇到什么问题  怎么解决的
+
+	Target学习网站
+    	项目介绍
+    		本站是一个可以在线学习IT方面知识的网站，有丰富的学习资源的，包括书籍、视频、测试题，可在线观看视频、下载视频、在线做测试题。还能多人进行组队，组成一个小组，组内成员互相监督，共同进步。此外，还提供了it动态新闻、学员经历、招聘信息、相关竞赛信息等供用户查看
+    	所用前端技术
+    		jquery amazeui HTML css css3
+    	主要功能
+    	    登录注册
+    	    在线观看视频
+    	    在线测试
+    	    打分评论
+    	    搜索
+    	    轮播
+    	    个人资料的修改  默认
+    	    
+
+
+
+	郷野故事
+	    文件上传
+	       input type="file" multiple = "multiple" (控制是否支持多文件上传)
+
+	       	设置multiple来实现多张上传功能。
+			需要使用循环来获取上传的每一张图片，并把他们依次展示出来
+			每次循环都需要重新new一个新的FileReader对象
+           var src = [];
+	       .onchange = function(event){
+	         for(var i=0;i<event.target.files.length;i++)
+	           var myfile = event.target.files[i];
+	           var fileReader[i] = new FileReader();
+	           fileReader[i].readAsDataURL(myfile);
+	           src.push(fileReader[i].result);
+	       }
+    
+
+查看当前端口使用情况 并关闭其他程序对某端口的使用
+	cmd 中输入  netstat -ano  （可参看当前端口的使用情况，找到相应端口号对对应的PID号
+	打开任务管理器 中的 详细信息  找到使用此PID号的程序  结束此任务即可
+
+
+
+es6中模板字符串的优点
+	在es5以及之前，当输出字符串中包含变量时是需要+号将各段字符串以及变量连接起来的。且输出不保存字符串中过多的空格和换行符。总的写法繁琐且表达也不直观
+	但在es6中使用模板字符串，它可以输出多行字符串，保留字符串之间的空格和缩进换行，当字符串中包含变量时，使用${}直接将变量插入到语句中即可，整个语句表达的意思更为直观，写法也更为简便。且在${}中可进行变量的运算，可添加运算表达式、调用函数
+
+	模板字符串还可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能（tagged template）。
+		alert`123`;  // 等同于  alert(123)
+		tag`Hello ${ a + b } world ${ a * b }`;  // 等同于 tag(['Hello ', ' world ', ''], 15, 50);
+
+

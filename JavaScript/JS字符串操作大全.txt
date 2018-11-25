@@ -1,0 +1,104 @@
+JS字符串操作大全
+
+string.charAt(index)  等价于  str[index]
+	以单字符字符串的形式返回给定位置的那个字符 
+string.at(index)
+	返回字符串给定位置的字符。at方法，可以识别 Unicode 编号大于0xFFFF的字符，返回正确的字符。而charAt方法不能识别码点大于0xFFFF(占用四个字节)的字符
+string.charCodeAt(index)
+	以单字符字符串的形式返回给定位置的那个字符的字符编码 
+
+string.concat(ch1,ch2,...)
+    concat方法可以接收任意多个参数,返回拼接后的字符串的，原字符串不变
+
+string.slice(start,end)
+ 	第一个参数指定子字符串开始位置,第二个参数表示子字符串最后一个字符后面的位置 
+string.substring(start,end)
+	第一个参数指定子字符串开始位置，第二个参数表示子字符串最后一个字符后面的位置 
+string.substr(start,nums)
+	返回从第一个参数指定子字符串开始位置开始，连续nums个字符的子串
+这三个方法都会返回被操作字符串的一个子字符串，都接收一或两个参数。如果没有给这些方法传递第二个参数，则将字符串的长度作为结束位置。这些方法也不会修改字符串本身，只是返回一个基本类型的字符串值 
+
+string.indexOf(subStr,index)
+	从字符串的index位置往后搜索子字符串，然后返回子字符串的位置，如果没有找到，则返回-1
+string.lastIndexOf(subStr,index)
+	从字符串的index位置往前搜索子字符串，然后返回子字符串的位置，如果没有找到，则返回-1
+string.includes(subStr)
+	返回布尔值，表示是否找到了参数字符串
+string.startsWith(subStr)
+	返回布尔值，表示参数字符串是否在原字符串的头部。
+string.endsWith(subStr)
+	返回布尔值，表示参数字符串是否在原字符串的尾部。
+
+string.trim()
+	删除字符串前后的空格,返回处理后的字符串，注意原字符串是会被修改的
+
+string.toLowerCase()
+	将字符串转化为小写字母
+string.toUpperCase()
+	将字符串转化为大写字母
+
+string.match(reg)
+	接受一个参数，由字符串或RegExp对象指定的一个正则表达式 
+string.search(reg)
+	接受一个参数，由字符串或RegExp对象指定的一个正则表达式。返回字符串中第一个匹配项的索引，如果没有匹配项，返回-1
+string.matchAll(reg)
+	返回一个正则表达式在当前字符串的所有匹配
+
+string.replace(str1,str2)
+	将string中的str1替换为str2，此时只能替换找到的第一个。此外第一个参数也可以是正则表达式，所以会替换所有的匹配到的子字符串
+string.repeat(n)
+	返回一个新字符串，表示将原字符串重复n次。
+	n如果是小数，会被取整。
+	n是负数或者Infinity，会报错
+	n如果是 0 到-1 之间的小数，则等同于 0，这是因为会先进行取整运算。0 到-1 之间的小数，取整以后等于-0，repeat视同为 0
+	n为NaN等同于 0
+	n如果参数是字符串，则会先转换成数字。
+
+string.split(ch)
+	基于指定的字符，将字符串分割成字符串数组并返回
+
+str1.localeCompare(str2)
+	这个方法用于比较两个字符串 
+      如果字符串在字母表中应该排在字符串参数之前，则返回一个负数 
+      如果字符串等于字符串参数，则返回0 
+      如果字符串在字母表中应该排在字符串参数之后，则返回一个正数 
+
+value.toString() 
+	将其余类型的值value转化为字符串并返回
+
+string.padStart(n,str)
+	如果string不够指定长度，会在头部用str补全
+string.padEnd(n,str)
+	如果string不够指定长度，会在尾部用str补全
+如果原字符串的长度，等于或大于指定的最小长度，则返回原字符串
+如果用来补全的字符串与原字符串，两者的长度之和超过了指定的最小长度，则会截去超出位数的补全字符串。
+如果省略第二个参数，默认使用空格补全长度。
+用途：
+	数值补全指定位数
+		'1'.padStart(10, '0') // "0000000001"
+		'12'.padStart(10, '0') // "0000000012"
+		'123456'.padStart(10, '0') // "0000123456"
+	提示字符串格式
+		'12'.padStart(10, 'YYYY-MM-DD') // "YYYY-MM-12"
+		'09-12'.padStart(10, 'YYYY-MM-DD') // "YYYY-09-12
+
+String.raw(str)
+	方法可以作为处理模板字符串的基本方法，它会将所有变量替换，而且对斜杠进行转义，方便下一步作为字符串来使用
+		String.raw`Hi\n${2+3}!`;  // 返回 "Hi\\n5!"
+		String.raw`Hi\u000A!`;  // 返回 "Hi\\u000A!"
+	作为正常的函数使用。这时，它的第一个参数，应该是一个具有raw属性的对象，且raw属性的值应该是一个数组。
+		String.raw({ raw: 'test' }, 0, 1, 2);  // 't0e1s2t'  等同于  String.raw({ raw: ['t','e','s','t'] }, 0, 1, 2);
+
+字符串去重函数
+    function unique(msg){ 
+      var res=[]; 
+      var arr=msg.split(""); 
+      //console.log(arr); 
+      for(var i=0;i<arr.length;i++){ 
+        if(res.indexOf(arr[i])==-1){ 
+          res.push(arr[i]); 
+        } 
+      } 
+      return res.join(""); 
+    } 
+

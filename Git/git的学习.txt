@@ -1,0 +1,115 @@
+git的学习
+	初始化一个Git仓库，使用git init命令。
+	添加文件到Git仓库，分两步：
+	  第一步，使用命令git add <file> <file>，注意，可反复多次使用，添加多个文件；
+	  第二步，使用命令git commit [-m "xxx"]，完成,"xxx"是做本次改动的说明。执行这个命令后会告诉你哪做了改动
+
+	$ mkdir learngit    新建一个版本库
+	$ cd learngit   进入版本库
+	$ pwd     用于显示当前目录
+	/Users/michael/learngit
+
+	$ git status  查看当前工作区的状态
+	$ git diff   查看修改的内容
+
+	当一个文件修改了会被放在工作区中，可查看工作区的状态和修改的内容，然后确认知晓后将修改的文件add进暂存区（stage），在使用commit将改动的文件一次性提交到分支（master），清空工作目录
+
+	$ git log [--pretty=oneline]  显示查看从最近到最远的提交日志，也就是什么时候谁改了什么.加上--pretty=oneline 表示只查看最近一次的
+
+	$ git reset --hard HEAD^  回退到上一版本
+	HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+	git reflog 查看命令commit_id历史，以便确定要回到未来的哪个版本。
+
+	每次修改，如果不add到暂存区，那就不会加入到commit中
+	如：第一次修改 -> git add -> 第二次修改 -> git commit  此时提交到分支的是第一次的修改不包含第二次的修改，要想一起提交第二次修改，则 第一次修改 -> git add -> 第二次修改 -> git add -> git commit
+
+	撤销修改
+		撤销未add的文件的修改或是add后未commit做了的修改，直接在文件中删除修改，然后gitout -- file （可以丢弃工作区的修改） 
+		撤销已经add的修改，git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区，现在暂存区是干净的，工作区有修改，最后git checkout -- file 丢弃工作区的修改
+		撤销提交了到版本库不合适的修改时，回退到上一个版本
+
+	$ rm file  删除文件
+	若确定删除，rm file 后执行 commit -m "";若删错了，执行 $ git checkout -- file （用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”）
+	如果直接在文件夹里面将文件删除了，还是要先add这些文件然后commit
+
+	分支管理
+		Git鼓励大量使用分支：
+		查看分支：git branch
+		创建分支：git branch <name>
+		切换分支：git checkout <name>
+		创建+切换分支：git checkout -b <name>
+		合并某分支到当前分支：git merge <name> -m
+		删除分支：git branch -d <name>
+
+		当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。用git log --graph命令可以看到分支合并图
+
+		准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward(-m参数，把commit描述写进去)：
+			$ git merge --no-ff -m "merge with no-ff" dev
+		合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+		修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+		当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+
+		开发一个新feature（功能，最好新建一个分支；
+		如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除
+
+		查看远程库的信息：git remote  或  git remote -v
+		推送分支：该分支上的所有本地提交推送到远程库  $ git push origin <name>
+		并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？
+			master分支是主分支，因此要时刻与远程同步；
+			dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+			bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+			feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发
+		多人协作的工作模式通常是这样：
+			首先，可以试图用git push origin branch-name推送自己的修改；
+			如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+			如果合并有冲突，则解决冲突，并在本地提交；
+			没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+			如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+	标签管理
+		git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id，如：$ git tag v0.9 6224937；
+		git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+		git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+		命令git tag可以查看所有标签。
+		git show <tagname>可以看到说明文字
+		删除标签：$ git tag -d v0.1
+		推送标签到远程：git push origin <tagname>  或一次性推送全部尚未推送到远程的本地标签：$ git push origin --tags
+		删除已推送到远程的标签：
+			先从本地删除：$ git tag -d v0.9
+			然后从远程删除：git push origin :refs/tags/<tagname>
+
+	有必要是可以忽略特殊文件，忽略某些文件时，需要编写.gitignore；
+
+	配置别名  $ git config --global alias.co checkout  用co代替checkout
+	配置Git的时候，加上--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用
+	每个仓库的Git配置文件都放在.git/config文件中
+
+
+
+
+利用Git将本地项目提交到github上（前提github上添加了本地的密钥）
+	在github上创建一个新的仓库(repository)
+	进入将要保存这个仓库的目录下 打开Git Bash
+	输入以下命令：
+	  git clone git@github.com:Erindcl/LightHouse.git   // 将远程仓库克隆到本地
+	  git add filename   // 在本地仓库里面添加文件
+	  git commit -m "描述文字"  // 提交本地仓库的修改
+
+	  git push origin master  // 将本地仓库的修改提交到远程仓库，同步远程仓库
+
+不知什么原因，在git push 的使用中会报错  
+	报错原因是远程仓库更新的内容本地未更新，提交产生了冲突
+	error: failed to push some refs to 'git@github.com:Erindcl/LightHouse.git'
+	hint: Updates were rejected because the remote contains work that you do
+	hint: not have locally. This is usually caused by another repository pushing
+	hint: to the same ref. You may want to first integrate the remote changes
+	hint: (e.g., 'git pull ...') before pushing again.
+	hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+    此时将git push origin master改为git push -f origin master
+
+分支的使用过程中
+	在目录中对文件做了修改add了修改时，git此时不管是处于分支还是主支都会显示当前工作区和暂存区有文件
+	最后这个修改存在哪个分支取决于执行commit操作的时候Git处于的是哪个分支
+	当切换分支时，修改的文件就会根据当前分支是都有无该文件而消失或出现
+	当修改了只有分支有的文件内容而未commit时，不能从当前切换到主支去
+	但如果是添加删除某个文件的话，可以进行俩个支的切换，并且根据commit所处分支判断此次删除操作属于哪个分支

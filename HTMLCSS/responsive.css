@@ -1,0 +1,24 @@
+/*1.1024px显屏*/
+@media screen and (max-width : 1024px) {                    
+/* 样式写在这里 */          
+}     
+/*2.800px显屏*/
+@media screen and (max-width : 800px) {              
+/* 样式写在这里 */          
+}     
+/*3.640px显屏*/
+@media screen and (max-width : 640px) {              
+/* 样式写在这*/            
+}     
+/*4.iPad横板显屏*/
+@media screen and (max-device-width: 1024px) and (orientation: landscape) {              
+/* 样式写在这 */            
+}     
+/*5.iPad竖板显屏*/
+@media screen and (max-device-width: 768px) and (orientation: portrait) {         
+/* 样式写在这 */            
+}     
+/*6.iPhone 和 Smartphones*/
+@media screen and (min-device-width: 320px) and (min-device-width: 480px) {              
+/* 样式写在这 */            
+}     

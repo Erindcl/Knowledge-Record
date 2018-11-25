@@ -1,0 +1,53 @@
+
+语言“类型”：对语言引擎的开发人员来说，类型是值的内部特征，它定义了值的行为，以使其区别于其他值。
+
+特殊语言类型判断 typeof null === "object"; // true
+
+js中的变量没有类型只有值才有类型，所以可以为变量赋任何类型的值
+typeof操作符 会返回一个一个字符串表示该变量的值的类型
+			 当变量未持有值时，返回undefined
+
+undefined 表示在作用域中声明了但没有为其赋值过的变量
+undeclared 表示在作用域中没有声明过  此时会报错ReferenceError  但当用typeof操作符判断变量类型时还是会返回undefined
+
+如果字符串键值能够被强制转换为十进制数字，它会被当做数字索引来处理
+   var a=[];
+   a["13"]=42;
+   a.length; //14
+
+简单字符串反转实现：
+	var a = "abcdefg";
+	var b = a.split("");
+	b.reverse();
+	a = b.join("");
+	console.log(a); // gfedcba
+	注：数组有一个简单的reverse()可变更成员方法，二字符串没有，因为字符串是不可变的
+	上诉方法的思想：将字符串转换为数组，调用reverse（）后再转换回字符串
+
+数字值可调用
+	.toFixed(num) 指定小数部分显示的位数
+	.toPrecision(num) 指定有效数位的显示位数
+
+undefined指没有值 是一个标识符 可以当做变量来使用和赋值
+null指空值 是一个特殊关键字 不是标识符 不能当做变量来使用和赋值
+
+NaN != NaN; //true
+判断一个数是否是NaN 这种数字类型
+	Number.isNaN（a）;
+JS 运算结果溢出 显示为Infinity或-Infinity（无穷 负无穷
+Infinity/Infinity = NaN
+
+对于负零
+	JSON.stringify(-0);// "0"  将数字-0转换为字符串结果是“0”
+	JSON.parse("-0");// -0  减字符串“-0”转化为数字结果是-0
+
+ES6工具函数 Object.is(a,b);判断a与b是否绝对相等 可适用于 -0  NaN  用来处理特殊相等
+
+简单值总是通过值复制的方式来赋值/传递，包括null undefined 字符串 布尔 symbol
+复合值（对象包括函数、数组）总是通过引用赋值的方式来赋值/传递  同一个值的不同引用操作的是相同的值
+
+
+
+
+
+

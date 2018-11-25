@@ -1,0 +1,148 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	font-size: 14px;
+	color: #000;
+	background: url(images/bg.gif) repeat left top;
+	font-family: "微软雅黑",Arial;
+}
+#wrapper{
+    width: 960px;
+    margin: 0 auto;
+}
+#header{
+	border-bottom: 20px solid #242424;
+	width: 960px; 
+	height: 65px; 
+	background: #05598A;
+	position: fixed;
+}
+#logo{
+	border: 0px solid #ff0000;
+	float: left;
+	width: 320px;
+	height: 65px;
+	padding: 21px 0 0 12px;
+}#search{
+	float: left; 
+	width: 300px;
+	height: 40px;
+	margin-top: 25px;
+}
+.input{
+	width: 220px; 
+	height: 22px;
+}
+.btn{
+	width: 50px; 
+	height: 28px; 
+	margin-left: 5px;
+}#pop{
+	float: right; 
+	width: 250px; 
+	height: 40px;
+	margin-top: 25px;
+}
+#pop ul{
+	list-style-type: none;
+}
+#pop li{
+	margin-left: 15px;
+	float: left;
+}
+#left{
+	float: left; 
+	width: 150px; 
+	height: 560px; 
+	background: #05598a; 
+	border-right: 20px solid #242424;
+	position: fixed; 
+	top: 85px;
+}
+#left ul {
+	text-align:right;
+	list-style-type: none;
+	
+}
+#left ul li a{
+	display:block;
+    color: #000; 
+    text-decoration: none;width: 130px;
+    height: 24px; 
+    line-height: 24px; 
+    padding-right: 20px;
+    background: #88c322;
+}
+#left ul li a:hover,#left ul li a.current{
+	background: #05598a url(images/jiantou.png) no-repeat 10px center; 
+	color: #fff;
+}
+#left ul li a.other {
+	background: #05598a;
+}
+#left ul li a:hover.other {
+	background: #88c322 url(images/jiantou.png) no-repeat 10px center; 
+	color: #fff;
+}
+#right{
+	float: right; 
+	width: 790px; 
+	margin-top: 85px;
+}
+#slide{
+	margin-bottom: 25px;
+}
+#slide img {
+	width: 760px; 
+	border: 15px solid #ff0000; 
+	border-radius: 10px;/*修边框边角*/
+}
+#item{
+	width: 780px; 
+	height: 150px; 
+	padding: 5px; 
+	background: #fff; 
+	margin-top: 10px;
+}
+#item_left {
+	float: left; 
+	width: 370px;
+}
+#item_left img {
+	width: 360px;
+    height: 150px;
+}
+#item_right {
+	float: right;
+	width: 410px;
+}
+#item_right .date {
+	height: 50px; 
+	background: url(images/use.gif) no-repeat left center; 
+	padding-left: 55px; 
+	color:#666;
+	line-height: 70px;
+}
+#item_right h3 {
+	font-size: 14px; 
+	height: 30px;
+}
+#item_right h3 a {
+	font-size: 14px; 
+	color: #333; 
+	text-decoration: none;
+}
+#item_right h3 a:hover {
+	color: #CC0000;
+}
+#item_right p {
+	text-indent: 2em;
+	 color: #666; 
+	 line-height: 20px;
+}
+#item_right p a {
+	text-decoration: none; 
+	color: #166492;
+}

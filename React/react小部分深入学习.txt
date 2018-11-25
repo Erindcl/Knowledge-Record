@@ -1,0 +1,150 @@
+
+深入 JSX
+	JSX 只是为 React.createElement(component, props, ...children) 方法提供的语法糖
+		<MyButton color="blue" shadowSize={2}>
+			Click Me
+		</MyButton>
+	  编译为：
+		React.createElement(
+		  MyButton,
+		  {color: 'blue', shadowSize: 2},
+		  'Click Me'
+		)
+	用大写开头命名组件
+		当元素类型以小写字母开头时，它表示一个内置的组件，如 <div> 或 <span>，并将字符串 ‘div’ 或 ‘span’ 传 递给 React.createElement。 以大写字母开头的类型，如 <Foo /> 编译为 React.createElement(Foo)，并它正对应于你在 JavaScript 文件中定义或导入的组件。
+	为组件指定属性
+		使用 JavaScript 表达式
+			使用 属性名={表达式} 作为属性
+			<MyComponent foo={1 + 2 + 3 + 4} />
+			if 语句和 for 循环在 JavaScript 中不是表达式，因此它们不能直接在 JSX 中使用
+		字符串常量
+			<MyComponent message="hello world" />
+			<MyComponent message={'hello world'} />
+		默认为 True
+			没有给属性传值，它默认为 true
+			<MyTextBox autocomplete />  等价于  <MyTextBox autocomplete={true} />
+		扩展属性
+			有了个 props 对象，并且想在 JSX 中传递它，你可以使用 ... 作为扩展操作符来传递整个属性对象
+			function App1() {
+			  return <Greeting firstName="Ben" lastName="Hector" />;
+			}
+		    等价于：
+			function App2() {
+			  const props = {firstName: 'Ben', lastName: 'Hector'};
+			  return <Greeting {...props} />;
+			}
+	在JSX表达式中，可以包含在开始和结束标签之间的元素（子代）
+		字符串常量
+			<MyComponent>Hello world!</MyComponent>
+		JSX
+			<MyContainer>
+			  <MyFirstComponent />  // 为MyContainer的子元素
+			  <MySecondComponent />
+			</MyContainer>
+			React 组件也可以通过数组的形式返回多个元素：
+				render() {
+				  // 不需要使用额外的元素包裹数组中的元素
+				  return [
+				    // 不要忘记 key :)
+				    <li key="A">First item</li>,
+				    <li key="B">Second item</li>,
+				    <li key="C">Third item</li>,
+				  ];
+				}
+		JavaScript 表达式
+			<MyComponent>{'foo'}</MyComponent>
+
+			function Hello(props) {
+			  return <div>Hello {props.addressee}!</div>;
+			}
+
+			return (
+			    <ul>
+			      {todos.map((message) => <Item key={message} message={message} />)}
+			    </ul>
+			  );
+		函数
+			function ListOfTenThings() {
+			  return (
+			    <Repeat numTimes={10}>
+			      {(index) => <div key={index}>This is item {index} in the list</div>}
+			    </Repeat>
+			  );
+			}
+		布尔值、Null 和 Undefined 被忽略
+			false、null、undefined 和 true 都是有效的子代，但它们不会直接被渲染
+			<div></div> 等价于 <div>{false}</div> 等价于 <div>{null}</div> 等价于 <div>{undefined}</div> 等价于 <div>{true}</div>
+			如果你想让类似 false、true、null 或 undefined 出现在输出中，你必须先把它转换成字符串 :
+
+在React中，使用<input type="file" /> 
+	class FileInput extends React.Component {
+	  constructor(props) {
+	    super(props);
+	    this.handleSubmit = this.handleSubmit.bind(this);
+	  }
+	  handleSubmit(event) {
+	    event.preventDefault();
+	    alert(
+	      `Selected file - ${this.fileInput.files[0].name}`
+	    );
+	  }
+
+	  render() {
+	    return (
+	      <form onSubmit={this.handleSubmit}>
+	        <label>
+	          Upload file:
+	          <input
+	            type="file"
+	            ref={input => {
+	              this.fileInput = input;
+	            }}
+
+	          />
+
+	        </label>
+	        <br />
+	        <button type="submit">Submit</button>
+	      </form>
+	    );
+	  }
+	}
+
+	ReactDOM.render(
+	  <FileInput />,
+	  document.getElementById('root')
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

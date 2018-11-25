@@ -1,0 +1,40 @@
+JS字符串的方法和属性
+
+属性
+  str.length
+      字符串长度
+
+方法
+  str.charAt(n)
+      返回str中第n个位置的字符，n从0开始
+  str.charCodeAt(n)
+      返回str中第n个位置的字符的字符编码，n从0开始
+  str[n]
+      也可访问str中第n个位置的字符，n从0开始
+
+  str1.concat(str2，str3, ...)
+      返回str1与str2等拼接后的新字符串，str1、str2等保持不变
+  str.slice(n [,m])  str.substring(n [,m])
+      返回str中位置在  n <= index < m  ||  n <= index < str.length 范围内的子串
+  str.substr(n,m) 
+      返回从n开始连续m个字符的子串
+  
+  str.indexOf(char [,n])
+      从第n(若未设置则为0)个位置开始找char,返回第一次找到char所在位置，未找到返回-1
+  str.lastIndexOf(char [,n])
+      从第n(若未设置则为最后一个)个位置开始往回找char,返回第一次找到char所在位置，未找到返回-1
+    
+  str.trim()
+      返回一个删除了开头和结尾空格的str的副本
+
+  str.toLowerCase()  str.toLocaleLowerCase()
+      将字符串转小写并返回
+  str.toUpperCase()  str.toLocaleUpperCase()
+      将字符串转大写并返回
+  
+  str.match()  str.search()  str.replace()
+
+
+
+
+  

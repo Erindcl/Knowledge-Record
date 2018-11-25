@@ -1,0 +1,205 @@
+JS高程测试题
+
+第三章
+	JS基本数据类型？复杂数据类型？
+	typeof操作符的使用 检测XX返回XX？
+	null == undefined ?
+	null与undefined的区别？
+				当一个声明了一个变量未初始化时，得到的就是undefined
+				null代表一个空对象指针
+				undefined是访问一个未初始化的变量时返回的值，而null是访问一个尚未存在的对象时所返回的值。因此，可以把undefined看作是空的变量，而null看作是空的对象
+				在定义一个想保存对象的变量时，就可以让该变量先保存null值，这样既能体现null是一个空指针对象，也能更好的区分null和undefined
+	如何将其余类型的值转化为布尔类型的值？   Boolean(val)
+	判断某个数组是否为有穷数值？             isFinite(num)
+	NaN == NaN ?
+	判断一个值能否转化为数值？               isNaN(val)
+	将非数值转换为数值的函数？               Number(val) parseInt(str) parseFloat(str)
+	将值转化为字符串？						 val.toString()
+	自定义对象？                             new Object()
+	检测给定属性是否存在与当前对象实例属性中？       obj.hasOwnProperty(proName)
+	检测当前原型对象是否是传入对象实例的原型？             obj.prototype.isPrototypeOf(obj1)
+	返回对象的字符串表示和数值表示？                 obj.toString() obj.valueOf()
+	"23" < "3" ?  "23" < 3 ?  NaN > 3 ?  NaN <= 3 ?
+	"55" == 55 ?  "55" === 55 ?  全等与相等的区别？
+	枚举对象属性？                           for (var property in obj) {...}
+	with语句的用法以及作用？
+	定义函数时不写参数名，调用时直接写入参数，是如何使用操作的？     参数arguments数组
+	ECMAScript没有重载，当同时定义了两个名字相同的函数时，调用函数时调用执行的是哪一个函数？原因是什么？
+
+第四章
+	复制变量时，复制基本类型变量的值与引用类型变量的值有什么区别？
+	函数参数传递时，引用类型的参数与基本类型的参数传递之间又存在什么区别？
+	如何检测某种对象是哪种类型的对象？               colors instanceOf Array
+	什么是变量对象？作用域链的作用？作用域中变量访问的过程是怎样的？
+	for语句中利用var创建的变量i是存在哪个执行环境中的？
+	如果变量没有用var声明就赋值，那么这个变量存在哪个运行环境中？
+	垃圾回收机制原理？如何手动解除引用？
+
+第五章
+	常用的引用类型有哪些？                    
+				Object Array Date RegExp Function (基本包装类型：String Boolean Number)
+	Object如何表示？ (两种)
+	如何访问对象属性？(两种)
+	如何检测某变量是否是数组？
+				val instanceOf Array
+				Array.isArray(val)
+	数组转化为字符串的方法及用法？(4)
+				toString() valueOf() toLocaleString() join()
+	数组的栈方法-从数组后端添加或参数元素？
+				push()  pop()
+	在数组的前端添加或删除元素的方法？
+				shift() unshift()
+	数字的重排序和反转的方法？
+				sort(function) reverse()
+	数组的操作方法？(3)
+				concat() slice() splice() 
+	数组的位置方法？
+				indexOf() lastIndexOf() 
+	数组的迭代方法？
+				every() some()  filter() map() forEach()
+	数组的归并方法？
+				reduce() reduceRight() 
+	将指定日期转化为毫秒数？(3)
+				Date.parse() Date.UTC() new Date() 
+	获取当前时间的毫秒数？
+				Date.now() 或 +new Date()
+	获取日期的年、月、日、时、分、秒？
+	RegExp类型中标志有哪些？
+				i g m
+	RegExp的实例属性与方法有哪些？(见书P105)
+	RegExp构造函数的属性？
+	函数名指代的是一个函数本身还是只是一个指向函数对象的指针？
+	有哪两种定义函数的方法？两者之间的区别是什么？
+	函数的内部对象有哪些？作用分别是？函数对象的属性有？
+	函数的属性和方法有？
+	call() apply() bind() 三者的用法和区别？			
+    基本包装类型与引用类型的区别？
+    基本包装类型什么时候创建？
+    包装类型Number类型的方法有哪些？
+    String类型的属性？
+    String类型的字符方法？字符串操作方法？字符串位置方法？如何去除字符串前后的空格？
+    字符串的大小写转换方法？
+    字符串的模式匹配方法？
+    如何进行字符串的比较？
+    根据字符串的编码将其转换为字符串？
+    全局对象中URI的编码与解码方法？
+    哪种方法可以解析字符串将其当做一串代码执行？
+    Math对象中取最大值最小值、绝对值、n次方、开根的方法？
+    Math对象中舍入的方法有哪些？取随机数的方法？
+
+第六章
+	数据属性的行为特性有哪些？对其如何修改？
+				[[Configurable]] [[Enumerable]] [[Writable]] [[Value]]   
+				Object.defineProperty(obj,pro,{...})
+	访问器属性特效包括？
+				[[Configurable]] [[Enumerable]] [[Get]] [[Set]] 
+	如何读取属性的特性？	
+				descriObj = Object.getOwnPropertyDescriptor(obj,pro)
+	什么是工厂模式？如何使用工厂模式来创建对象？工厂模式创建的优缺点？
+				用函数来封装以特定接口创建对象的细节
+				根据传参不同可以创建多个相似对象，但是无法识别判断创建的对象的类型
+	如何使用构造函数模式创建对象？
+				定义一个函数函数名即为对象类型且首字母大写，函数内部的属性和方法赋给this对象，实例化对象的时候使用new关键字调用并且传入相应的参数。
+	当将构造函数当普通函数调用时，该如何调用其内部的属性和方法？
+				此时，this对象指代的是window，通过window.就可调用方法和属性了
+	怎样能够通过其他对象调用？
+				使用call() apply() bind() 将构造函数中的this绑定到其他对象上，如 Person.call(o,"name"...) o.name; // name
+	构造函数的缺点？
+				同样的方法要在多个实例上都各自创建一遍，即有多处内存空间存了同样的东西。
+	原型模式的实现原理？
+				每个函数都有一个prototype（指针）属性指向一个对象，在原型对象上我们可以设置某特定类型的所有实例共享的属性和方法。
+	原型对象、构造函数、实例三者之间的关系是怎样的？
+				构造函数.prototype === 原型对象
+				构造函数 === 原型对象.constructor
+				实例._proto_ === 原型对象
+				实例 === new 构造函数
+				实例 instanceof 构造函数
+	判断某原型对象是否是某实例的原型对象？   原型对象.isPrototypeOf(实例)
+	获取某实例对象的原型对象？   Object.getPrototypeOf(实例)
+	判断某属性是否存在于实例对象中？   实例.hasOwnProperty(property)
+	判断某属性是否存在于实例对象或是其原型对象中？   property in 实例
+    取得对象上的所有可枚举实例属性？（本身包含的，不包含其原型上的属性）   
+    			Object.keys(obj) // 返回一个属性组成的数组
+    获取对象上全部的不管是否可枚举的实例属性？    Object.getOwnPropertyNames(obj)
+	使用对象字面量形式创建原型对象与一个个属性等号赋值方式创建的区别？
+				对象字面量形式创建的原型对象的constructor属性不指向该类型的构造函数，而指向了Object的构造函数了。使用这种方式本质重写了默认的原型对象
+				此时实例._proto_指向的是默认的那个原型对象而不是重写的原型对象
+	使用原型模式创建对象的缺点？
+				默认情况下，实例对象都取得了相同的属性值，无法通过传参来设定自己的属性值；当属性值为引用类型值时，我们通过某个实例修改了原型对象的该引用类型值，其余实例的值也同时受到影响
+	什么是组合使用构造函数模式和原型模式？
+				构造函数模式用于定义实例属性，原型模式用于定义共享的方法和属性
+	继承的关键在于？
+				让原型对象等于另一个类型的实例，即让构造函数的prototype属性指向另一个类型的实例
+    若想要给子类型添加新的方法和属性应何时添加？
+    			应在继承父类型之后添加属性和方法，此时可以添加语父类型中同名的函数覆盖掉父类型的函数
+    使用原型链继承的弊端？
+    			所有继承统一超类型的子类型共享超类型的方法和属性，当通过某一子类型修改了超类型的方法时，其余子类型也会受到影响
+    			创建子类型实例时，无法向超类型的构造函数中传递参数
+    借用构造函数实现继承是如何实现的？
+    			在子类型的构造函数内部通过call()、apply()等方法调用超类型的构造函数并且将超类型构造函数中的this对象绑定到子类型中。这样每个子类型中都会有自己的那一份超类型数据的副本
+    组合继承的实现？
+    			原型链方式继承父类型的原型属性和方法，借用构造函数继承父类型的实例属性
+	举一个继承的例子？
+				定义一个构造函数Person，这个函数有两个参数分别是name和age，函数内部设置为this.name=name;this.age=age;this.sayName = function () {return this.name;}	this.sayAge = function () {return this.age;}
+				再定义一个函数Teacher有一个参数job，函数里面this.job=job;为了让Teacher类型继承Person类型，我们将Teacher的prototype属性指向Person类型的实例。之后再为Teacher的原型对象设置一个sayJob的函数。创建Teacher的实例teacher1,通过teacher1可以调用sayAge这些函数
+				
+
+
+	偏移量 offsetTop(Width/Height/Left) 所指？
+	客户区大小 clientHeight(Width) 所指？
+	滚动大小 scrollTop(Width/Height/Left) 所指？
+
+	阻止事件进一步捕获或冒泡一般浏览器与IE浏览器分别如何实现？
+				event.stopPropagation() event.cancelBubble = true
+	阻止时间默认行为一般浏览器与IE浏览器分别如何实现？
+				event.preventDefual() event.returnValue = false
+	this、target、currentTarget三者的指代对象？
+	IE中的事件对象属性？一般浏览器的事件对象属性？
+
+	JSON对象与JS对象字面量的区别？如何进行相互转换？
+
+	XHR的用法：同步与异步不同的实现（注意使用的不同方法以及属性）？
+	请求响应过程中的会触发哪些进度事件？
+
+	列举你知道的状态以及其含义？
+				200 204 304 400 403 404 500 504 505
+	请求方法及其含义？
+				post get put head delete trace option
+
+	跨域资源共享（CROS）IE的实现过程以及其他浏览器的实现过程？
+	其他跨域技术：图像Ping  JSONP  Coment（长轮询与流）  SSE  Web Sockets？
+
+	如何使用cookie？
+	cookie是构成部分有哪些？
+	cookie读写删操作的实现？
+	什么是子cookie？
+	Storage对象的方法有哪些？
+				getItem(name) setItem(name,val) key(index) clear() removeItem(name)
+	sessionStorage对象存储数据特点？对其进行增 删 查 改 迭代等操作？
+	globalStorage的特点及用法？
+	localStorage对象特点及用法？
+
+	cookie、sessionStorage与localStorage三者的区别？
+				生命周期：
+					如果不在浏览器中设置过期时间，cookie被保存在内存中，生命周期随浏览器的关闭而结束，这种cookie简称会话cookie。如果在浏览器中设置了cookie的过期时间，cookie被保存在硬盘中，关闭浏览器后，cookie数据仍然存在，直到过期时间结束才消失
+					localStorage的生命周期是永久的，关闭页面或浏览器之后localStorage中的数据也不会消失。localStorage除非主动删除数据，否则数据永远不会消失。
+					sessionStorage的生命周期是在仅在当前会话下有效
+				储存大小：
+					单个cookie保存的数据不能超过4kb，localStorage和sessionStorage的存储数据大小一般都是：5MB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

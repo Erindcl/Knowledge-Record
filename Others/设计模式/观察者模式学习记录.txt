@@ -1,0 +1,110 @@
+
+观察者模式（发布/订阅者模式、自定义事件模式）
+	当发布者的一个特定的事件发生的时候，发布者会通知（调用）与其相关的所有的订阅者
+
+发布者共有的一些特性（通用的发布者方法）：
+	var publisher = {  整个过程中订阅者在发布者这边始终是以函数作为身份存在的
+	    subscribers: {  // 根据订阅的事件类型来分别存放所有的订阅者
+	        any: [] // 存放订阅了所有事件的订阅者 不管发布者有任何动态都会通知订阅者
+	    },
+	    subscribe: function (fn, type) {  // 订阅的过程 将订阅者根据订阅的事件类型加入到对应数组中
+	        type = type || 'any';
+	        if (typeof this.subscribers[type] === "undefined") {
+	            this.subscribers[type] = [];
+	        }
+	        this.subscribers[type].push(fn);
+	    },
+	    unsubscribe: function (fn, type) {  // 将订阅者从订阅者列表中移除
+	        this.visitSubscribers('unsubscribe', fn, type);
+	    },
+	    publish: function (publication, type) { // 事件发生时，遍历订阅了该事件的订阅者并调用它们订阅时提供的方法
+	        this.visitSubscribers('publish', publication, type);
+	    },
+	    visitSubscribers: function (action, arg, type) {  // 访问遍历订阅者列表 并进行相应的操作（通知或移除订阅者）
+	        var pubtype = type || 'any',
+	            subscribers = this.subscribers[pubtype],
+	            i,
+	            max = subscribers.length;
+
+	        for (i = 0; i < max; i += 1) {
+	            if (action === 'publish') {
+	                subscribers[i](arg);
+	            } else {
+	                if (subscribers[i] === arg) {
+	                    subscribers.splice(i, 1);
+	                }
+	            }
+	        }
+	    }
+	};
+
+将一个有自己方法的对象变成一个发布者（通过复制通用的发布者的方法将这个对象墨迹成发布者）：
+	function makePublisher(o) {
+	    var i;
+	    for (i in publisher) {
+	        if (publisher.hasOwnProperty(i) && typeof publisher[i] === "function") {
+	            o[i] = publisher[i];
+	        }
+	    }
+	    o.subscribers = {any: []};
+	}
+
+实现一个实例：订阅日报和月报
+
+	// 一个对象，发布日报和月刊
+	var paper = {
+	    daily: function () {
+	        this.publish("big news today");
+	    },
+	    monthly: function () {
+	        this.publish("interesting analysis", "monthly");
+	    }
+	};	
+
+	// 将其变为发布者
+	makePublisher(paper);
+
+	// 定义一个订阅者对象joe（看日报的时候喝咖啡，看周报之后睡觉）
+	var joe = {
+	    drinkCoffee: function (paper) {
+	        console.log('Just read ' + paper);
+	    },
+	    sundayPreNap: function (monthly) {
+	        console.log('About to fall asleep reading this ' + monthly);
+	    }
+	};	
+
+	// 让joe来订阅paper
+	paper.subscribe(joe.drinkCoffee);
+	paper.subscribe(joe.sundayPreNap, 'monthly');
+
+	// paper定期发布周报和月报
+	paper.daily();
+	paper.daily();
+	paper.daily();
+	paper.monthly();
+
+	// 这些发布行为都会调用joe的对应方法，控制台中输出的结果是：
+	Just read big news today
+	Just read big news today
+	Just read big news today
+	About to fall asleep reading this interesting analysis
+
+	以上整个过程所有涉及到的对象都是松耦合的。而且在不修改代码的前提下，我们可以给paper添加更多的订阅者，同时joe也可以在任何时候取消订阅。让我们更进一步，将joe也变成一个发布者
+
+	// 将joe也变成一个发布者
+	makePublisher(joe);
+	joe.tweet = function (msg) { // joe更新tweet
+	    this.publish(msg);
+	};
+
+	// 有人更新tweet就通知见面
+	paper.readTweets = function (tweet) {
+	    alert('Call big meeting! Someone ' + tweet);
+	};
+
+	// 将paper加入joe的订阅者列表
+	joe.subscribe(paper.readTweets);
+
+	//每当joe更新tweet时，paper就会弹出警告窗口：“Call big meeting! Someone hated the paper today”
+	joe.tweet("hated the paper today");

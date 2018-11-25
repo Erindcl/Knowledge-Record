@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>多芒网</title>
+	<style type="text/css">
+	* {
+		padding: 0; margin: 0;
+	}
+	body {
+		font-size: 14px; line-height: 24px; color: #000; font-family: "微软雅黑",Arial; background: url(images/bg.gif) repeat left top;
+	}
+	li {
+		list-style-type: none; 
+	}
+	.wrapper {
+		width: 960px; margin: 0 auto;
+	}
+	.header {
+		width: 960px; height: 65px; background: #05598A; border-bottom: 20px solid #242424; position: fixed;
+	}
+	.logo {
+		float: left; width: 320px; padding: 20px 0 0 12px;
+	}
+	.search {
+		float: left; width: 300px; padding-top: 25px;
+	}
+	.input_search {
+		width: 220px; height: 22px;
+	}
+	.btn_search {
+		width: 50px; height: 28px; margin-left: 5px; 
+	}
+	.pop {
+		float: right; width: 250px; padding-top: 25px;
+	}
+	.pop ul li {
+		float: left; margin-left: 15px;
+	}
+	.left {
+		float: left; width: 150px; height: 560px; background: #05598a; border-right: 20px solid #242424;position: fixed; top: 85px;
+	}
+	.left ul {
+		text-align:right;
+	}
+	.left ul li a {
+		display:block; width: 130px; background: #88c322; height: 24px; line-height: 24px; padding-right: 20px; color: #000; text-decoration: none;
+	}
+	.left ul li a:hover,.left ul li a.current {
+		background: #05598a url(images/jiantou.png) no-repeat 10px center; color: #fff;
+	}
+	.left ul li a.other {
+		background: #05598a;
+	}
+	.left ul li a:hover.other {
+		background: #88c322 url(images/jiantou.png) no-repeat 10px center; color: #fff;
+	}
+	.right {
+		float: right; width: 790px; margin-top: 85px;
+	}
+	.slide {
+		margin-bottom: 25px;
+	}
+	.slide img {
+		width: 760px; border: 15px solid #ff0000; border-radius: 10px;
+	}
+	.item {
+		width: 780px; height: 150px; padding: 5px; background: #fff; margin-top: 10px;
+	}
+	.item_left {
+		float: left; width: 370px;
+	}
+	.item_left img {
+		width: 360px; height: 150px;
+	}
+	.item_right {
+		float: right; width: 410px;
+	}
+	.item_right .date {
+		height: 50px; background: url(images/use.gif) no-repeat left center; padding-left: 55px; color:#666;line-height: 70px;
+	}
+	.item_right h3 {
+		font-size: 14px; height: 30px;
+	}
+	.item_right h3 a {
+		font-size: 14px; color: #333; text-decoration: none;
+	}
+	.item_right h3 a:hover {
+		color: #CC0000;
+	}
+	.item_right p {
+		text-indent: 2em; color: #666; line-height: 20px;
+	}
+	.item_right p a {
+		text-decoration: none; color: #166492;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<div class="logo"><img src="images/logo.gif" /></div>
+			<div class="search"><input type="text" name="keywords" class="input_search"><input type="button" value="搜索" class="btn_search"></div>
+			<div class="pop">
+				<ul>
+					<li><img src="images/p.gif" /></li>
+					<li><img src="images/ki.gif" /></li>
+					<li><img src="images/pic2.gif" /></li>
+					<li><img src="images/pic3.gif" /></li>
+					<li><img src="images/rss.png" /></li>
+				</ul>
+			</div>
+		</div>
+		<div class="main">
+			<div class="left">
+				<ul>
+					<li><a href="#">首页</a></li>
+					<li><a href="#" class="current">多芒播报</a></li>
+					<li><a href="#">影视播报</a></li>
+					<li><a href="#">娱乐播报</a></li>
+					<li><a href="#">时尚播报</a></li>
+					<li><a href="#">档期预告</a></li>
+					<li><a href="#">票房排行</a></li>
+					<li><a href="#">新鲜影视</a></li>
+					<li><a href="#">中国电影</a></li>
+					<li><a href="#">外国电影</a></li>
+					<li><a href="#">多芒独家</a></li>
+					<li><a href="#">综艺娱乐</a></li>
+					<li><a href="#">光影空间</a></li>
+					<li><a href="#">梦幻魔盒</a></li>
+					<li><a href="#">多芒游戏</a></li>
+					<li><a href="#">纪录片</a></li>
+					<li><a href="#">电视剧</a></li>
+					<li><a href="#">动漫</a></li>
+					<li><a href="#">博客</a></li>
+					<li><a href="#">影评</a></li>
+					<li><a href="#" class="other">注册</a></li>
+					<li><a href="#" class="other">关于我们</a></li>
+				</ul>
+			</div>
+			<div class="right">
+				<div class="slide"><img src="images/slide1.jpg" /></div>
+				<div class="item">
+					<div class="item_left">
+						<a href="#"><img src="images/1.jpg" /></a>
+					</div>
+					<div class="item_right">
+						<div class="date">2013年10月</div>
+						<h3><a href="#">多芒影视新视界【VOL.1】：经得起香艳，玩得起高端</a></h3>
+						<p>【新视点】 【迈克尔贝：他们像丧尸一样还咬人！】他像布拉德皮特演的那部《世界大战Z》中的丧尸一样，试图举起七个人并尝试咬他们。迈克尔贝不愧是好莱坞科幻大片导...<a href="#">［详细内容］</a></p>
+					</div>
+				</div>
+				<div class="item">
+					<div class="item_left">
+						<a href="#"><img src="images/1.jpg" /></a>
+					</div>
+					<div class="item_right">
+						<div class="date">2013年10月</div>
+						<h3><a href="#">多芒影视新视界【VOL.1】：经得起香艳，玩得起高端</a></h3>
+						<p>【新视点】 【迈克尔贝：他们像丧尸一样还咬人！】他像布拉德皮特演的那部《世界大战Z》中的丧尸一样，试图举起七个人并尝试咬他们。迈克尔贝不愧是好莱坞科幻大片导...<a href="#">［详细内容］</a></p>
+					</div>
+				</div>
+				<div class="item">
+					<div class="item_left">
+						<a href="#"><img src="images/1.jpg" /></a>
+					</div>
+					<div class="item_right">
+						<div class="date">2013年10月</div>
+						<h3><a href="#">多芒影视新视界【VOL.1】：经得起香艳，玩得起高端</a></h3>
+						<p>【新视点】 【迈克尔贝：他们像丧尸一样还咬人！】他像布拉德皮特演的那部《世界大战Z》中的丧尸一样，试图举起七个人并尝试咬他们。迈克尔贝不愧是好莱坞科幻大片导...<a href="#">［详细内容］</a></p>
+					</div>
+				</div>
+				<div class="item">
+					<div class="item_left">
+						<a href="#"><img src="images/1.jpg" /></a>
+					</div>
+					<div class="item_right">
+						<div class="date">2013年10月</div>
+						<h3><a href="#">多芒影视新视界【VOL.1】：经得起香艳，玩得起高端</a></h3>
+						<p>【新视点】 【迈克尔贝：他们像丧尸一样还咬人！】他像布拉德皮特演的那部《世界大战Z》中的丧尸一样，试图举起七个人并尝试咬他们。迈克尔贝不愧是好莱坞科幻大片导...<a href="#">［详细内容］</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

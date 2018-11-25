@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>flexible box</title>
+  <style>
+  .box{
+    height:200px;
+    width: 200px;
+    background: lightblue;
+    margin-bottom: 50px;
+    display: flex;
+  }
+  .items{
+    height: 50px;
+    width: 50px;
+    background: salmon;
+  }
+  .box1{
+    justify-content: center;
+    /* justify-content: flex-end; */
+    /* justify-content: flex-start; */
+    /* align-items: flex-start; */
+    /* align-items: center; */
+    align-items: flex-end;
+  }
+  .box2{
+    /* flex-direction: column; */
+    justify-content: space-between;
+    /* align-items: flex-end; */
+  }
+  .item21{
+    align-self: flex-end;
+  }
+  .box3{
+    justify-content: space-between;
+  }
+  .item31{
+    align-self: center;
+  }
+  .item32{
+    align-self: flex-end;
+  }
+  .box4{
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: space-between;
+  }
+  /* .box5-cell{
+    flex: 1;
+  } */
+  .cell-item1{
+    flex: 1;
+  }
+  .cell-item2{
+    flex: 0 0 10%;
+  }
+  .cell-item3{
+    flex: 0 0 25%;
+  }
+  .cell-item4{
+    flex: 0 0 15%;
+  }
+  .inputadd{
+    height: 60px;
+    width: 200px;
+    background: lightblue;
+    margin-bottom: 50px;
+    display: flex;
+  }
+  .input-notice,.input-btn{
+    width: 50px;
+    height: 60px;
+    background: sandybrown;
+  }
+  .input-text{
+    flex: 1;
+  }
+  </style>
+</head>
+<body>
+  <div class="box box1">
+    <div class="items"></div>
+  </div>
+  <div class="box box2">
+    <div class="items"></div>
+    <div class="items item21"></div>
+  </div>
+  <div class="box box3">
+    <div class="items"></div>
+    <div class="items item31"></div>
+    <div class="items item32"></div>
+  </div>
+  <div class="box box4" style="width:180px;">
+    <div class="items"></div>
+    <div class="items item41"></div>
+    <div class="items item42"></div>
+    <div class="items item43"></div>
+  </div>
+  <div class="box box5" style="width:300px;">
+    <div class="items box5-cell cell-item1" style="background:salmon"></div>
+    <!-- <div class="items box5-cell cell-item2" style="background:rgba(144,158,177,0.4)"></div> -->
+    <!-- <div class="items box5-cell cell-item3" style="background:rgba(144,158,200,0.9)"></div> -->
+    <!-- <div class="items box5-cell cell-item4" style="background:rgba(244,158,177,0.8)"></div> -->
+  </div>
+  <div class="inputadd">
+    <div class="input-notice"></div>
+    <input type="text" class="input-text">
+    <button class="input-btn"></button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,387 @@
+
+浏览器不同 兼容前缀不同
+	-webkit chrome和safari
+	-moz    firefox
+	-ms     IE
+	-o      opera
+
+阴影 box-shadow
+	box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式 设置为inset 表示内阴影，默认为外阴影];
+		阴影模糊半径：此参数可选，其值只能是为正值，如果其值为0时，表示阴影不具有模糊效果，其值越大阴影的边缘就越模糊；
+		阴影扩展半径：此参数可选，其值可以是正负值，如果值为正，则整个阴影都延展扩大，反之值为负值时，则缩小；
+	添加多个阴影：用逗号隔开
+		.box_shadow{
+    		box-shadow:4px 2px 6px #f00, -4px -2px 6px #000, 0px 0px 12px 5px #33CC00 inset;
+		}
+
+边框图片
+	border-image:url(图片路径) 70 70 70 70 repeat[round(平铺) | strctch(拉伸)];
+
+rgba 范围0-255
+
+线性渐变
+	linear-gradient(to bottom,#fff,#999)
+	注：第一个参数指定渐变方向，可以用角度或英文
+		0deg		to top
+		90deg		to right
+		180deg		to bottom
+		270deg		to left
+					to top left     右下角到左上角
+					to top right	左下角到右上角
+		第二三个参数表示颜色的起始点和结束点 可以以逗号间隔设置多个颜色值
+
+文字与字体
+	text-overflow:clip(表示剪切)|ellipsis(表示显示省略标记) 用来设置是否使用...标示对象内文本的溢出
+	实现溢出文本显示省略号的效果：
+		text-overflow:ellipsis; 
+		overflow:hidden; 
+		white-space:nowrap; 
+	word-wrap：normal(一行显示)|break-word(超出容器可换行) 设置文本行为，是否属性允许长单词或 URL 地址换行到下一行
+
+	@font-face {  /*能够加载服务器端的字体文件*/
+	    font-family : 字体名称;
+	    src : 字体文件在服务器上的相对或绝对路径;
+	}
+
+	text-shadow: X-Offset Y-Offset blur color;  设置文本阴影效果
+		X-Offset：表示阴影的水平偏移距离，其值为正值时阴影向右偏移，反之向左偏移；      
+		Y-Offset：是指阴影的垂直偏移距离，如果其值是正值时，阴影向下偏移，反之向上偏移；
+		Blur：是指阴影的模糊程度，其值不能是负值，如果值越大，阴影越模糊，反之阴影越清晰，如果不需要阴影模糊可以将Blur值设置为0；
+		Color：是指阴影的颜色，其可以使用rgba色
+
+背景
+	background-origin ： border-box(从边框开始显示) | padding-box(从内边距开始显示) | content-box(从内容区域开始显示);
+		设置元素背景图片的原始起始位置
+		如果背景不是no-repeat，这个属性无效，它会从边框开始显示
+	background-clip ： border-box(从边框向外剪切背景) | padding-box(从内边距向外剪切背景) | content-box(从内容区域向外剪切背景) | no-clip(不剪切，与border-box显示相同的效果) 
+		用来将背景图片做适当的裁剪以适应实际需要
+	background-size: auto | <长度值> | <百分比> | cover | contain
+		cover：顾名思义为覆盖，即将背景图片等比缩放以填满整个容器；
+		contain：容纳，即将背景图片等比缩放至某一边紧贴容器边缘为止
+
+选择器
+	E[att^="val"] 为属性att的值以val开头的元素E设置样式
+	E[att$="val"] 为属性att的值以val结尾的元素E设置样式
+	E[att*="val"] 为属性att的值包含val的元素E设置样式
+		<a href="xxx.pdf">我链接的是PDF文件</a>
+		a[class^=icon]{
+		  background: green;
+		  color:#fff;
+		}
+
+	:root 根选择器 
+		匹配元素E所在文档的根元素
+		在HTML文档中，根元素始终是<html>
+		:root{background:orange}
+		html {background:orange;}
+		以上两者效果是相同的
+	:not 否定选择器
+		选择除某个元素之外的所有元素
+		input:not([type="submit"]){
+		  border:1px solid red;
+		}
+	:empty 选择器表示的就是空
+		用来选择没有任何内容的元素，连空格也没有
+	:target 目标选择器
+		用来匹配文档(页面)的url的某个标志符的目标元素
+	:first-child 选择器   （:last-child）
+		选择父元素的第（最后）一个子元素的元素
+	:nth-last-child(n)
+		选择父元素的倒数第n个子元素 n从1开始
+	:nth-of-type(n)
+		它只计算父元素中指定的某种类型的子元素
+		“n”参数，可以是具体的整数，也可以是表达式，还可以是关键词
+	:only-child 
+		选择的是父元素中有且仅有一个子元素
+	:enabled 设置表单元素可用
+	:disabled 设置表单元素不可用
+		input[type="text"]:disabled{
+  			box-shadow: none;
+		}
+	:checked 单复选按钮选中样式设置
+	::selection
+		用来匹配突出显示的文本(即用鼠标选择文本时的文本）直接用
+		::selection{
+		  background: orange;
+		  color: white;
+		}
+		::-moz-selection{
+		  background: orange;
+		  color: white;
+		}
+	:read-only
+		用来指定处于只读状态元素的样式
+		<input type="text" name="address" id="address" placeholder="中国上海" readonly="readonly" />
+		input[type="text"]:-moz-read-only{
+		  border-color: #ccc;
+		}
+		input[type="text"]:read-only{
+		  border-color: #ccc;
+		}
+	:read-write
+		指定当元素处于非只读状态时的样式
+	::before和::after
+		主要用来给元素的前面或后面插入内容
+		常和"content"配合使用
+		使用的场景最多的就是清除浮动
+
+变形
+	旋转 rotate()
+		指定的角度参数使元素相对原点进行旋转
+		正值，元素相对原点中心顺时针旋转
+		负值，元素相对原点中心逆时针旋转
+	    -webkit-transform: rotate(45deg);
+  	    transform: rotate(45deg);
+  	扭曲 skew()
+  		将一个对象以其中心位置围绕着X轴和Y轴按照一定的角度倾斜
+  		skew(x,y)
+  			使元素在水平和垂直方向同时扭曲（X轴和Y轴同时按一定的角度值进行扭曲变形）
+  		skewX(x)
+  			仅使元素在水平方向扭曲变形（X轴扭曲变形）
+  		skewY(y)
+  			仅使元素在垂直方向扭曲变形（Y轴扭曲变形）
+  	缩放 scale()
+  		scale(X,Y)使元素水平方向和垂直方向同时缩放
+	  		div:hover {
+			  -webkit-transform: scale(1.5,0.5);
+			  -moz-transform:scale(1.5,0.5)
+			  transform: scale(1.5,0.5);
+			}
+			注意：Y是一个可选参数，如果没有设置Y值，则表示X，Y两个方向的缩放倍数是一样的
+		scaleX(x)元素仅水平方向缩放
+		scaleY(y)元素仅垂直方向缩放
+	位移 translate()
+		translate(x,y)水平方向和垂直方向同时移动
+		translateX(x)仅水平方向移动
+		translateY(Y)仅垂直方向移动   x,y为px值
+	矩阵 matrix()
+		详情查资料
+	transform-origin
+		对元素进行原点位置改变，使元素原点不在元素的中心位置
+		top left		如果您仅规定了一个关键词，那么第二个值将是"center"。
+		top center		默认值：0% 0%。
+		top right
+		center left
+		center center
+		center right
+		bottom left
+		bottom center
+		bottom right
+		x% y%			第一个值是水平位置，第二个值是垂直位置。
+						左上角是 0% 0%。右下角是 100% 100%。
+						如果您仅规定了一个值，另一个值将是 50%。
+		xpos ypos		第一个值是水平位置，第二个值是垂直位置。
+						左上角是 0 0。单位是像素 (0px 0px) 或任何其他的 CSS 单位。
+						如果您仅规定了一个值，另一个值将是50%。
+						您可以混合使用 % 和 position 值。
+	transform-style 属性规定如何在 3D 空间中呈现被嵌套的元素
+		值： flat	子元素将不保留其 3D 位置。
+			 preserve-3d	子元素将保留其 3D 位置
+
+动画 
+	过渡属性 transition-property
+		transition属性是一个复合属性，主要包括以下几个子属性：
+			transition-property:指定过渡或动态模拟的CSS属性   width
+			transition-duration:指定完成过渡所需的时间   .5s
+			transition-timing-function:指定过渡函数   ease-in
+			transition-delay:指定开始出现的延迟时间   .18s
+		改变两个ccs属性时，用以下方式：
+		transition: background 0.8s ease-in 0.3,color 0.6s ease-out 0.3;
+  			
+Keyframes  关键帧
+	括号中就是一些不同时间段样式规则
+	通过“@keyframes”声明一个名叫“wobble”的动画，从“0%”开始到“100%”结束，同时还经历了一个“40%”和“60%”两个过程，不同过程中右不同样式的变化（0%和100%还可以使用关键词from和to来代表
+	@keyframes wobble {
+	  0% {
+	    margin-left: 100px;
+	    background:green;
+	  }
+	  40% {
+	    margin-left:150px;
+	    background:orange;
+	  }
+	  60% {
+	    margin-left: 75px;
+	    background: blue;
+	  }
+	  100% {
+	    margin-left: 100px;
+	    background: red;
+	  }
+	}
+调用动画
+	使用animation-name属性调用 @keyframes 定义好的动画
+	animation-name 调用的动画名需要和“@keyframes”定义的动画名称完全一致（区分大小写）
+	语法：
+		animation-name: none(默认值，没任何动画效果) | IDENT(动画名);
+	注意：需要在 Chrome 和 Safari 上面的基础上加上-webkit-前缀，Firefox加上-moz-。
+设置CSS3动画播放时间
+	使用animation-duration设置
+设置动画播放方式
+	animation-timing-function:ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier(<number>, <number>, <number>, <number>) [, ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier(<number>, <number>, <number>, <number>)]*
+设置动画开始播放的时间
+	animation-delay:<time>[,<time>]*
+设置动画播放次数
+	animation-iteration-count: infinite | <number> [, infinite | <number>]*
+		其值通常为整数，但也可以使用带有小数的数字，其默认值为1，这意味着动画将从开始到结束只播放一次。
+		如果取值为infinite，动画将会无限次的播放。
+动画播放方向
+	animation-direction:normal | alternate [, normal | alternate]*
+		normal是默认值，如果设置为normal时，动画的每次循环都是向前播放；
+		另一个值是alternate，他的作用是，动画播放在第偶数次向前播放，第奇数次向反方向播放。
+设置动画的播放状态
+	animation-play-state:paused(不播放) | running(播放);
+设置动画时间外属性
+	animation-fill-mode属性定义在动画开始之前和结束之后发生的操作
+	属性值 			效果
+	none			默认值，表示动画将按预期进行和结束，在动画完成其最后一帧时，动画会反转到初始帧处
+	forwards		表示动画在结束后继续应用最后的关键帧的位置
+	backwards		会在向元素应用动画样式时迅速应用动画的初始帧
+	both			元素动画同时具有forwards和backwards效果
+	在默认情况之下，动画不会影响它的关键帧之外的属性，使用animation-fill-mode属性可以修改动画的默认行为。简单的说就是告诉动画在第一关键帧上等待动画开始，或者在动画结束时停在最后一个关键帧上而不回到动画的第一帧上。或者同时具有这两个效果
+
+多列布局
+	columns：<column-width>(每列宽度) <column-count>(列数)
+	  兼容性处理：
+	    -webkit-columns: 150px 3;
+        -moz-columns: 150px 3;
+        -o-columns: 150px 3;
+        -ms-columns: 150px 3;
+        columns: 150px 3;
+    column-width: auto | <length>
+    	值为auto：列宽将由其他属性来决定，比如前面的示例就是由列数column-count来决定
+    	<length>：只能是正值，不能为负值
+    column-count：auto | <integer>
+    column-gap: normal || <length>   列间距
+
+  列表边框
+	column-rule:<column-rule-width>|<column-rule-style>|<column-rule-color>
+		用来定义列与列之间的边框宽度、边框样式和边框颜色 类似于border属性   
+		column-rule-style的值包括none、hidden、dotted、dashed、solid、double、groove、ridge、inset、outset	
+
+  跨列设置
+	column-span	用来定义一个分列元素中的子元素能跨列多少
+	column-span: none | all
+
+盒子模型
+	box-sizing: content-box | border-box | inherit
+		事先定义盒模型的尺寸解析方式
+		content-box: 默认值，其让元素维持W3C的标准盒模型，也就是说元素的宽度和高度（width/height）等于元素边框宽度（border）加上元素内距（padding）加上元素内容宽度或高度（content width/ height），也就是element width/height = border + padding + content width / height
+		border-box: 重新定义CSS2.1中盒模型组成的模式，让元素维持IE传统的盒模型（IE6以下版本和IE6-7怪异模式），也就是说元素的宽度或高度等于元素内容的宽度或高度。从上面盒模型介绍可知，这里的内容宽度或高度包含了元素的border、padding、内容的宽度或高度（此处的内容宽度或高度＝盒子的宽度或高度—边框—内距）。
+		inherit: 使元素继承父元素的盒模型模式
+
+布局使用flex布局
+
+媒体查询Media Queries（能在不同的条件下使用不同的样式，使页面在不同在终端设备下达到不同的渲染效果）
+	媒体类型的引用方法
+		link标签
+			在<link>标签引用样式的时候，通过link标签中的media属性来指定不同的媒体类型
+			<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+		@import
+			样式文件中调用另一个样式文件时，就可以指定对应的媒体类型。
+				@importurl(reset.css) screen;   
+				@importurl(print.css) print;
+			在<head>中的<style>标签中引入媒体类型方法。
+				<head>
+					<style type="text/css">
+   						 @importurl(style.css) all;
+					</style>
+				</head>
+		@media
+			在样式文件中引用媒体类型：
+				@media screen {
+				   选择器{/*你的样式代码写在这里…*/}
+				}
+			使用@media引入媒体类型的方式是在<head>标签中的<style>中引用。
+				<head>
+					<style type="text/css">
+				    	@media screen{
+				    		选择器{/*你的样式代码写在这里…*/}
+						}
+					</style>
+				</head>
+	使用方法如下：
+		@media 媒体类型 and（媒体特性）{你的样式}
+		媒体特性如后 (max-width: 480px)	通过min/max来表示大于等于或小于做为逻辑判断
+		多个媒体特性一起使用用and链接  如：
+			@media screen and (min-width:600px) and (max-width:900px){
+  				body {background-color:#f5f5f5;}
+			}
+		设备屏幕的输出宽度Device Width
+			<link rel="stylesheet" media="screen and (max-device-width:480px)" href="iphone.css" />
+		not关键词
+			“not”是用来排除某种制定的媒体类型 如：
+				@media not print and (max-width: 1200px){样式代码}
+				上面代码表示的是：样式代码将被使用在除打印设备和设备宽度小于1200px下所有设备中
+		only 用来指定某种特定的媒体类型，可以用来排除不支持媒体查询的浏览器	
+			<linkrel="stylesheet" media="only screen and (max-device-width:240px)" href="android240.css" />
+		在Media Query中如果没有明确指定Media Type，那么其默认为all
+		在样式中，还可以使用多条语句来将同一个样式应用于不同的媒体类型和媒体特性中，指定方式如下所示
+			<linkrel="stylesheet" type="text/css" href="style.css" media="handheld and (max-width:480px), screen and (min-width:960px)" />
+		在不同浏览器中使用，不用添加前缀
+响应式设计（Responsive设计 简称 RWD
+	Responsive布局技巧
+	在Responsive布局中，可以毫无保留的丢弃：
+		第一， 尽量少用无关紧要的div；
+		第二，不要使用内联元素（inline）；
+		第三，尽量少用JS或flash；
+		第四，丢弃没用的绝对定位和浮动样式；
+		第五，摒弃任何冗余结构和不使用100%设置
+	能帮助Responsive确定更好的布局
+		第一，使用HTML5 Doctype和相关指南；
+		第二，重置好你的样式（reset.css）；
+		第三，一个简单的有语义的核心布局；
+		第四，给重要的网页元素使用简单的技巧，比如导航菜单之类元素。
+	meta标签被称为可视区域meta标签，其使用方法如下。
+		<meta name=”viewport” content=”” />
+		content： width   可视区域的宽度，其值可以是一个具体数字或关键词device-width
+				  height  可视区高度
+				  initial-scale   页面首次被显示时页面可视区域的缩放级别，取值为1.0时将使页面按实际尺寸显示，无任何缩放
+				  minimun-scale   可视区域的最小缩放级别，表示用户可以将页面缩小的程度，取值为1.0时将禁止用户缩小至实际尺寸以下
+				  maximun-scale   可视区域的最大缩放级别，表示用户可以将页面放大的程度，取值为1.0时将禁止用户放大至实际尺寸以上
+				  user-scalable   指定用户是否可以对页面进行缩放，设置为yes将允许缩放，no为禁止缩放
+		使用设备的宽度为视图的宽度，也就是说禁止其默认的自适应页面的效果，具体设置如下：
+			<meta name=”viewport” content=”width=device-width,initial-scale=1.0” />
+
+自由缩放属性resize(需要兼容性设置)
+	resize  允许用户通过拖动的方式来修改元素的尺寸来改变元素的大小
+	resize: none | both | horizontal | vertical | inherit
+		none
+			用户不能拖动元素修改尺寸大小。
+		both
+			用户可以拖动元素，同时修改元素的宽度和高度
+		horizontal
+			用户可以拖动元素，仅可以修改元素的宽度，但不能修改元素的高度。
+		vertical
+			用户可以拖动元素，仅可以修改元素的高度，但不能修改元素的宽度。
+		inherit
+			继承父元素的resize属性值。
+
+外轮廓outline
+	外轮廓线不占用网页布局空间，不一定是矩形，外轮廓是属于一种动态样式，只有元素获取到焦点或者被激活时呈现
+	outline: ［outline-color］ || [outline-style] || [outline-width] || [outline-offset] || inherit
+		outline-offset	定义轮廓边框的偏移位置的数值，此值可以取负数值。当此参数的值为正数值，表示轮廓边框向外偏离多少个像素；当此参数的值为负数值，表示轮廓边框向内偏移多少个像素。
+		outline:2px solid red;
+		outline-offset:15px;
+		注：以上同时使用才有效
+
+content配合CSS的伪类或者伪元素的使用（这个属性对img和input不起作用
+	none
+		不生成任何内容
+	attr
+		插入标签属性值
+	url
+		使用指定的绝对或相对地址插入一个外部资源（图像，声频，视频或浏览器支持的其他任何资源）
+	string
+		插入字符串
+	例子：  将content中的内容插到h1中文字之前
+		<h1>我是标题，在我前面插入内容吧</h1>
+		h1:before {
+		  content:"我是被插进来的";
+		  color: red;
+		}
+
+
+
+
+

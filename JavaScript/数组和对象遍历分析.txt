@@ -1,0 +1,62 @@
+
+遍历 （数组或者对象
+
+普通方法循环数组
+  for (var index = 0; index < myArray.length; index++) {
+   console.log(myArray[index]);
+  }
+
+for each (es5 后有的该数组对象的内置方法,只能遍历数组，循环遍历数组中的每一项)
+  myArray.forEach(function (value,index,arry) {
+    console.log(value);
+  });
+  弊端：不能中断循环，即不能使用break语句和return语句
+
+for in (一般使用其来遍历带有字符串key的对象，也能使用其来遍历数组但不推荐这么做)
+  var obj = {a:1, b:2, c:3};
+  for (var prop in obj) {
+    console.log("obj." + prop + " = " + obj.prop);
+  }
+
+for of (es6中引入的循环方法，比传统的for循环简洁，同时弥补了forEach和for-in循环的短板，ES6标准引入了iterable类型，Array、Map、Set都属于iterable类型。具有iterable类型的集合可以通过新的for ... of循环来遍历)
+  循环一个数组：
+    let iterable = [10, 20, 30];
+    for (let value of iterable) {
+      console.log(value);
+    }
+  循环字符串：
+    let iterable = "boo";
+    for (let value of iterable) {
+      console.log(value);
+    }
+  循环一个Map：
+    let iterable = new Map([["a", 1], ["b", 2], ["c", 3]]);
+    for (let [key, value] of iterable.entries()) {
+      console.log(value);
+    }
+  循环一个Set： Set 类型中的元素都是独一无二的
+    let iterable = new Set([1, 1, 2, 2, 3, 3]);
+    for (let value of iterable.values()) {
+      console.log(value);
+    }
+  循环一个拥有enumerable属性的对象：
+    注意：for–of循环并不能直接使用在普通的对象上，但如果我们按对象所拥有的属性进行循环，可使用内置的Object.keys()方法
+    for (var key of Object.keys(someObject)) {
+      console.log(key + ": " + someObject[key]);
+    }
+
+
+
+
+map()   返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值 (数组的map方法与es6中的Map类型无关) 
+  var ary = [12,23,24,42,1];  
+  var res = ary.map(function (item,index,input) {   // input 当前数组对象
+    return item*10;  
+  })  
+  console.log(res);//-->[120,230,240,420,10];  将原数组拷贝了一份，并进行了修改作为返回值
+  console.log(ary);//-->[12,23,24,42,1]；  原数组并未发生变化
+  应用场景：需将数组中所有的元素进行统一处理再输出
+
+ 
+
+

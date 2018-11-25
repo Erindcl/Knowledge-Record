@@ -1,0 +1,98 @@
+JS 数组操作大全
+
+arr.shift()
+	删除原数组第一项，并返回删除元素的值
+	如果数组为空则返回undefined
+
+arr.unshift(n1,n2,...)
+	将参数添加到原数组开头，并返回数组的长度 
+	注：IE6.0及以下返回值总为undefined
+
+arr.pop()
+	删除原数组最后一项，并返回删除元素的值
+	如果数组为空则返回undefined 
+
+arr.push()
+	将参数添加到原数组末尾，并返回数组的长度 
+
+arr.concat([...])
+	返回一个新数组，新数组是由原数组的副本和参数链接而成的，故原数组不变
+
+arr.splice(start,deleteCount,val1,val2,...)
+	从start位置开始删除deleteCount项，并从该位置起插入val1,val2,... 
+
+arr.reverse()
+	将数组反序 
+
+arr.sort(sortby)
+	按指定的参数对数组进行排序 
+	1)默认排序顺序是根据字符串Unicode大小
+	2)参数sortby可选,规定排序顺序,必须是函数
+	3)如果想按照自定义标准进行排序，就需要提供比较函数，该函数要比较两个值，然后返回一个用于说明这两个值的相对顺序的数字。比较函数应该具有两个参数 a 和 b，其返回值如下：
+		若 a 小于 b，在排序后的数组中 a 应该出现在 b 之前，则返回一个小于 0 的值。
+		若 a 等于 b，则返回 0。
+		若 a 大于 b，则返回一个大于 0 的值。
+		如：按照数字大小进行排序，需要加入的参数函数为：
+			function sortNumber (a,b) {
+				return a - b
+			}
+
+arr.slice(start,end)
+	返回从原数组中指定开始下标到结束下标之间的项组成的新数组(不包含结束那一项)
+
+arr.join(separator)
+	将数组的元素组起一个字符串，以separator为分隔符
+	省略的话则用默认用逗号为分隔符 
+
+arr.indexOf(a)
+	返回a元素索引，不存在返回-1
+	索引从0开始
+
+arr.reduce(callback,[initialValue])
+	callback （执行数组中每个值的函数，包含四个参数）
+		previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））
+		currentValue （数组中当前被处理的元素）
+		index （当前元素在数组中的索引）
+		array （调用 reduce 的数组）
+		initialValue （作为第一次调用 callback 的第一个参数。）
+	方法接收一个函数作为累加器（accumulator），数组中的每个值（从左到右）开始缩减，最终为一个值。reduce 为数组中的每一个元素依次执行回调函数，不包括数组中被删除或从未被赋值的元素
+	可以利用此函数对数组所有元素进行求和
+		sum = arr.reduce((a,b)=>a+b,0); // a为上次计算返回的值，b为当前累加的数组的元素，0表示初始累加值为0
+
+
+
+
+ES6新增
+
+arr = Array.from({...})
+	将对象转为真正的数组，这个对象有两种类型：类似数组的对象和可遍历的对象（如ES6中的Set和Map）
+
+arr = Array.of()
+	用于将一组值，转换为数组
+	例：Array.of(3,11,8)  // [3,11,8]
+	弥补数组构造函数Array()的不足
+		new Array(3)  // [undefined*3]
+	Array.of可以替代Array()或者new Array()
+		Array.of()  // []
+		Array.of(undefined)  // [undefined]
+		Array.of(1)  // [1]
+		Array.of(1,2)  // [1,2]	
+
+arr.copyWidthin(target, start = 0, end = this.length)
+	将特定位置的成员复制到其他位置，然后返回当前数组
+		target(必选)：从该位置开始替换数据
+		start(可选)：从该位置开始读取数据，默认为0，如果是负数，表示倒数。
+		end(可选)：到该位置前停止读取数据，默认等于数组长度。如果是负数，表示倒数。
+
+arr.find()
+	用于找到第一个符合条件的数组成员
+
+arr.findIndex()
+	返回第一个符合条件的数组成员位置
+
+
+
+
+
+将一个数组去重：
+	nums = [...new Set(nums)];

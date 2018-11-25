@@ -1,0 +1,484 @@
+
+元素渲染
+	这样的一个东西就是一个元素：
+		const element = <h1>Hello, world</h1>;
+	渲染到页面中：
+		<div id="root"></div>  // 页面中的根节点
+		const element = <h1>Hello, world</h1>;  // 元素
+		ReactDOM.render(element, document.getElementById('root'));  // 通过此方法将元素渲染到页面中
+	更新元素渲染
+		当元素被创建之后，你是无法改变其内容或属性的
+		更新界面的唯一办法是创建一个新的元素，然后将它传入 ReactDOM.render() 方法
+		更新的时候，React DOM 首先会比较元素内容先后的不同，而在渲染过程中只会更新改变了的部分。
+
+组件 & Props
+	组件的定义
+		就像是函数，它可以接收任意的输入值（称之为“props”），并返回一个需要在页面上展示的React元素。
+	函数定义组件
+		function Welcome(props) {
+		  return <h1>Hello, {props.name}</h1>;  // 根据输入的值返回一个react元素
+		}
+	类定义组件
+		class Welcome extends React.Component {
+		  render() {
+		    return <h1>Hello, {this.props.name}</h1>;
+		  }
+		}
+	组件渲染
+		React元素可以是用户自定义的组件：
+			const element = <Welcome name="Sara" />;
+		使用：
+			function Welcome(props) {
+			  return <h1>Hello, {props.name}</h1>;
+			}
+
+			// 将自定义的组件作为React元素使用并传入相应的参数
+			const element = <Welcome name="Sara" />;  
+			ReactDOM.render(
+			  element,
+			  document.getElementById('root')
+			);
+		使用过程中发生了什么：
+			我们对<Welcome name="Sara" />元素调用了ReactDOM.render()方法。
+			React将{name: 'Sara'}作为props传入并调用Welcome组件。
+			Welcome组件将<h1>Hello, Sara</h1>元素作为结果返回。
+			React DOM将DOM更新为<h1>Hello, Sara</h1>。
+		注意：
+			组件名称必须以大写字母开头。
+			例如，<div /> 表示一个DOM标签，但 <Welcome /> 表示一个组件，并且在使用该组件时你必须定义或引入它
+	组合组件
+		组件可以在它的输出中引用其它组件
+		举例：
+			function Welcome(props) {
+			  return <h1>Hello, {props.name}</h1>;
+			}
+
+			function App() {
+			  return (
+			    <div>
+			      // 在App组件的返回中使用Welcome组件
+			      <Welcome name="Sara" />
+			      <Welcome name="Cahal" />
+			      <Welcome name="Edite" />
+			    </div>
+			  );
+			}
+
+			ReactDOM.render(
+			  <App />,
+			  document.getElementById('root')
+			);
+		组件的返回值只能有一个根元素
+	复用组件
+		为了提高组件的复用性，建议从内容涵盖比较多的组件抽离出一些内容封装成小的组件，然后在外部组件中再去引入这些小组件
+	Props的只读性
+		无论是使用函数或是类来声明一个组件，它决不能修改它自己的props
+		不允许像以下这样修改Props的属性：
+			function withdraw(account, amount) {
+			  account.total -= amount;
+			}
+
+State & 生命周期
+	使用state存储组件的局部状态，将元素的更新封装到组件内部，在使用组件时就无需再为其传入Props了
+	挂载：每当组件第一次加载到DOM中的时候，我们想生成定时器，更新组件的局部状态
+	卸载：每当组件生成的这个DOM被移除的时候，我们会想要清除定时器
+	使用生命周期函数（生命周期钩子），当组件挂载或卸载时，来运行一些代码
+	举例：
+		class Clock extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = {date: new Date()}; // 将组件内部变化的值赋值给state属性 即为类添加局部状态
+		  }
+
+		  componentDidMount() { // 当组件输出到 DOM 后会执行 componentDidMount() 钩子，此时建立定时器
+		    this.timerID = setInterval( // 注意像这样保存定时器ID
+		      () => this.tick(),
+		      1000
+		    );
+		  }
+
+		  componentWillUnmount() { // 在 componentWillUnmount()生命周期钩子中卸载计时器
+		    clearInterval(this.timerID);
+		  }
+
+		  tick() { // 使用 this.setState() 来更新组件局部状态
+		    this.setState({
+		      date: new Date()
+		    });
+		  }
+
+		  render() {
+		    return (
+		      <div>
+		        <h1>Hello, world!</h1>
+		        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+		      </div>
+		    );
+		  }
+		}
+
+		ReactDOM.render(
+		  <Clock />, // 组件内部有了局部状态，就无需再为其传入Props了
+		  document.getElementById('root')
+		);
+	整个例子中发生的事情及其顺序：
+		当 <Clock /> 被传递给 ReactDOM.render() 时，React 调用 Clock 组件的构造函数。 由于 Clock 需要显示当前时间，所以使用包含当前时间的对象来初始化 this.state 。 我们稍后会更新此状态。
+		React 然后调用 Clock 组件的 render() 方法。这是 React 了解屏幕上应该显示什么内容，然后 React 更新 DOM 以匹配 Clock 的渲染输出。
+		当 Clock 的输出插入到 DOM 中时，React 调用 componentDidMount() 生命周期钩子。 在其中，Clock 组件要求浏览器设置一个定时器，每秒钟调用一次 tick()。
+		浏览器每秒钟调用 tick() 方法。 在其中，Clock 组件通过使用包含当前时间的对象调用 setState() 来调度UI更新。 通过调用 setState() ，React 知道状态已经改变，并再次调用 render() 方法来确定屏幕上应当显示什么。 这一次，render() 方法中的 this.state.date 将不同，所以渲染输出将包含更新的时间，并相应地更新DOM。
+		一旦Clock组件被从DOM中移除，React会调用componentWillUnmount()这个钩子函数，定时器也就会被清除。
+	正确使用状态更新
+		不能像以下直接更新状态：
+			this.state.comment = 'Hello';
+		要调用setState()方法更新状态：
+			this.setState({comment: 'Hello'});	
+		所以构造函数是唯一能够初始化 this.state 的地方
+	当Props和state中的数据一起决定一个新的状态时，要采用以下方法进行更新：
+		setState() 来接受一个函数而不是一个对象
+		该函数将接收先前的状态作为第一个参数，将此次更新被应用时的props做为第二个参数
+		this.setState((prevState, props) => ({
+		  counter: prevState.counter + props.increment
+		}));
+	当state的值是有多个属性的对象时，我们可以调用setState() 独立地更新它们
+		例如：
+		    this.state = {
+		      posts: [],
+		      comments: []
+		    };
+		    this.setState({ // 调用setState单独更新comments的值
+		      comments: response.comments
+		    });
+		此时this.setState({comments})完整保留了this.state.posts，但完全替换了this.state.comments
+	数据自顶向下流动
+		组件的状态，除了拥有并设置它的组件外，其它组件不可访问
+		组件可以选择将其状态作为属性传递给其子组件：
+			<FormattedDate date={this.state.date} />  // state父组件中的，FormattedDate为子组件
+		自顶向下或单向数据流：任何状态始终由某些特定组件所有，并且从该状态导出的任何数据或 UI 只能影响树中下方的组件
+
+事件处理
+	React事件绑定属性的命名采用驼峰式写法，而不是小写
+		用法：
+			<button onClick={activateLasers}>
+			  Activate Lasers
+			</button>
+	阻止默认行为只能用preventDefault，如下：
+		function ActionLink() {
+		  function handleClick(e) {
+		    e.preventDefault();
+		    console.log('The link was clicked.');
+		  }
+
+		  return (
+		    <a href="#" onClick={handleClick}>
+		      Click me
+		    </a>
+		  );
+		}
+	事件监听
+		不需要使用addEventListener为一个已创建的 DOM 元素添加监听器，仅需要在这个元素初始渲染的时候提供一个监听器
+		举例：
+			class Toggle extends React.Component {
+			  constructor(props) {
+			    super(props);
+			    this.state = {isToggleOn: true};
+
+			    // This binding is necessary to make `this` work in the callback
+			    this.handleClick = this.handleClick.bind(this);
+			  }
+
+			  handleClick() {
+			    this.setState(prevState => ({
+			      isToggleOn: !prevState.isToggleOn
+			    }));
+			  }
+
+			  render() {
+			    return (
+			      <button onClick={this.handleClick}>
+			        {this.state.isToggleOn ? 'ON' : 'OFF'}
+			      </button>
+			    );
+			  }
+			}
+
+			ReactDOM.render(
+			  <Toggle />,
+			  document.getElementById('root')
+			);
+		注意:
+			必须谨慎对待 JSX 回调函数中的 this，类的方法默认是不会绑定 this 的。如果你忘记绑定 this.handleClick 并把它传入 onClick, 当你调用这个函数的时候 this 的值会是 undefined。
+			通常情况下，如果调用方法时没有在方法后面添加 () ，例如 onClick={this.handleClick}，你应该为这个方法绑定 this。
+		如果不在构造函数中使用blind绑定回调函数到this上，则可采用另外一种方法，如下：
+			class LoggingButton extends React.Component {
+			  handleClick() {
+			    console.log('this is:', this);
+			  }
+
+			  render() {
+			    // This syntax ensures `this` is bound within handleClick
+			    return (
+			      <button onClick={(e) => this.handleClick(e)}>
+			        Click me
+			      </button>
+			    );
+			  }
+			}
+	向事件处理程序传递参数
+		两种方式：
+			<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+			<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+		上面两个例子中，参数 e 作为 React 事件对象将会被作为第二个参数进行传递。通过箭头函数的方式，事件对象必须显式的进行传递，但是通过 bind 的方式，事件对象以及更多的参数将会被隐式的进行传递。
+		通过 bind 方式向监听函数传参，在类组件中定义的监听函数，事件对象 e 要排在所传递参数的后面。例如：类中定义函数时：deleteRow(id, e){ ... }
+
+条件渲染
+	可以使用 JavaScript 操作符 if 或条件运算符来创建表示当前状态的元素，然后让 React 根据它们来更新 UI
+	可以使用变量来储存元素，帮助你有条件的渲染组件的一部分
+	可以使用&&或条件运算符 condition ? true : false来简化判断过程从而是代码更简洁
+	在极少数情况下，你可能希望隐藏组件，即使它被其他组件渲染。让 render 方法返回 null 而不是它的渲染结果即可实现。
+	详细里例子见官网：https://react.docschina.org/docs/conditional-rendering.html
+
+列表&keys
+	渲染多个组件
+		例：生成了一个1到5的数字列表
+		const numbers = [1, 2, 3, 4, 5];
+		const listItems = numbers.map((number) =>
+		  <li>{number}</li>
+		);
+		ReactDOM.render(
+		  <ul>{listItems}</ul>,
+		  document.getElementById('root')
+		);
+	基础列表组件
+		将上述例子封装成组件：
+			function NumberList(props) {
+				const numbers = props.numbers;
+				const listItems = numbers.map((number) =>
+				  <li>{number}</li>
+				);
+				return (
+					<ul>{listItems}</ul>
+				);
+			}
+			const numbers = [1,2,3,4,5];
+			ReactDOM.render(
+			  <NumberList numbers={numbers} />,
+			  document.getElementById('root')
+			);
+	Keys
+		Keys可以在DOM中的某些元素被增加或删除的时候帮助React识别哪些元素发生了变化。因此你应当给数组中的每一个元素赋予一个确定的标识
+		一个元素的key最好是这个元素在列表中拥有的一个独一无二的字符串
+			通常，我们使用来自数据的id作为元素的key:
+				const todoItems = todos.map((todo) =>
+					<li key={todo.id}>
+						{todo.text}
+					</li>
+				);
+			当元素没有确定的id时，你可以使用他的序列号索引index作为key
+				const todoItems = todos.map((todo, index) =>
+					// Only do this if items have no stable IDs
+					<li key={index}>
+						{todo.text}
+					</li>
+				);
+		在组件中使用key值时
+			应该在map()方法的内部调用元素时，为每一个元素加上一个独一无二的key
+			而不是在定义某一个元素的时候为他加上key
+		key值唯一的范围
+			数组元素中使用的key在其兄弟之间应该是独一无二的
+			然而，它们不需要是全局唯一的。当我们生成两个不同的数组时，我们可以使用相同的键
+			key会作为给React的提示，但不会传递给你的组件。如果您的组件中需要使用和key相同的值，请将其作为属性传递：
+				const content = posts.map((post) =>
+					<Post
+						key={post.id}
+						id={post.id}
+						title={post.title} />
+				);
+				Post组件可以读出props.id，但是不能读出props.key
+	在jsx中嵌入map()
+		JSX允许在大括号中嵌入任何表达式：
+		function NumberList(props) {
+			const numbers = props.numbers;
+			return (
+				<ul>
+				  // 通过大括号将表达式嵌入进标签内
+					{numbers.map((number) =>
+						<ListItem key={number.toString()}
+											value={number} />
+					)}
+				</ul>
+			);
+		}
+
+表单
+	受控组件
+		在React中，将表单的可变的状态保存在组件的状态属性中，并且用 setState() 方法进行更新
+		即React负责渲染表单的组件仍然控制用户后续输入时所发生的变化
+		举例：	
+			class NameForm extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {value: ''};
+
+					this.handleChange = this.handleChange.bind(this);
+					this.handleSubmit = this.handleSubmit.bind(this);
+				}
+
+				handleChange(event) {
+					this.setState({value: event.target.value});
+				}
+
+				handleSubmit(event) {
+					alert('A name was submitted: ' + this.state.value);
+					event.preventDefault();
+				}
+
+				render() {
+					return (
+						<form onSubmit={this.handleSubmit}>
+							<label>
+								Name:
+								<input type="text" value={this.state.value} onChange={this.handleChange} />
+							</label>
+							<input type="submit" value="Submit" />
+						</form>
+					);
+				}
+			}	
+		  由于 value 属性是在我们的表单元素上设置的，因此显示的值将始终为 React数据源上this.state.value 的值。由于每次按键都会触发 handleChange 来更新当前React的state，所展示的值也会随着不同用户的输入而更新。
+		使用”受控组件”,每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入
+	select表单
+		在React中，并不使用之前的selected属性，而在根select标签上用value属性来表示选中项
+		class FlavorForm extends React.Component {
+			...
+			render() {
+				return (
+					...
+					    // 通过this.state.value来控制当前选中的是哪项
+							<select value={this.state.value} onChange={this.handleChange}>
+								<option value="grapefruit">Grapefruit</option>
+								<option value="lime">Lime</option>
+								<option value="coconut">Coconut</option>
+								<option value="mango">Mango</option>
+							</select>
+						...
+				);
+			}
+		}
+		总之，<input type="text">, <textarea>, 和 <select> 都十分类似 - 他们都通过传入一个value属性来实现对组件的控制。
+	多个输入的解决方法
+		当你有处理多个受控的input元素时，你可以通过给每个元素添加一个name属性，来让处理函数根据 event.target.name的值来选择做什么
+		例：
+			class Reservation extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {
+						isGoing: true,
+						numberOfGuests: 2
+					};
+
+					this.handleInputChange = this.handleInputChange.bind(this);
+				}
+
+				handleInputChange(event) {
+					const target = event.target;
+					const value = target.type === 'checkbox' ? target.checked : target.value;
+					const name = target.name;
+
+					this.setState({
+						// 用ES6当中的计算属性名语法来更新与给定输入名称相对应的状态键
+						[name]: value
+					});
+				}
+
+				render() {
+					return (
+						<form>
+							<label>
+								Is going:
+								<input
+									name="isGoing"
+									type="checkbox"
+									checked={this.state.isGoing}
+									onChange={this.handleInputChange} />
+							</label>
+							<br />
+							<label>
+								Number of guests:
+								<input
+									name="numberOfGuests"
+									type="number"
+									value={this.state.numberOfGuests}
+									onChange={this.handleInputChange} />
+							</label>
+						</form>
+					);
+				}
+			}
+
+状态提升
+	几个组件需要共用状态数据时
+		解决办法：将这部分共享的状态提升至他们最近的父组件当中进行管理
+	状态提升：在React中，状态分享是通过将state数据提升至离需要这些数据的组件最近的父组件来完成的
+	例子：
+		根据输入的温度来判断水是否烧开，并根据输入的温度值自动转换为摄氏度或华氏摄氏度
+		详细代码见官网https://react.docschina.org/docs/lifting-state-up.html
+	小结
+		在React应用中，对应任何可变数据理应只有一个单一“数据源”
+		通常，状态都是首先添加在需要渲染数据的组件中。此时，如果另一个组件也需要这些数据，你可以将数据提升至离它们最近的父组件中。
+
+组合使用组件
+	包含关系的组件
+		组件使用 children 属性将子元素直接传递到输出
+		例子：
+			function FancyBorder(props) {
+				return (
+					<div className={'FancyBorder FancyBorder-' + props.color}>
+						{props.children}
+					</div>
+				);
+			}
+
+			function WelcomeDialog() {
+				return (
+					<FancyBorder color="blue">
+						<h1 className="Dialog-title">
+							Welcome
+						</h1>
+						<p className="Dialog-message">
+							Thank you for visiting our spacecraft!
+						</p>
+					</FancyBorder>
+				);
+			}
+
+			ReactDOM.render(
+				<WelcomeDialog />,
+				document.getElementById('root')
+			);
+			<FancyBorder> JSX 标签内的任何内容都将通过 children 属性传入 FancyBorder。由于 FancyBorder 在一个 <div> 内渲染了 {props.children}，所以被传递的所有元素都会出现在最终输出中。
+		有时你可能需要在组件中有多个入口，这种情况下你可以使用自己约定的属性而不是 children：
+			function SplitPane(props) {
+				return (
+					<div className="SplitPane">
+						<div className="SplitPane-left">
+							{props.left}
+						</div>
+						<div className="SplitPane-right">
+							{props.right}
+						</div>
+					</div>
+				);
+			}
+
+			function App() {
+				return (
+					<SplitPane
+						left={
+							<Contacts />
+						}
+						right={
+							<Chat />
+						} />
+				);
+			}
+

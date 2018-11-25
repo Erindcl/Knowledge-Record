@@ -1,0 +1,107 @@
+11.19
+
+css命名规范
+	BEM  NEC
+react 样式绑定：
+	https://segmentfault.com/a/1190000015925470
+	// 绑定className
+		// 使用逻辑运算符
+		<li className={['mingxi-tit-one', this.state.buttonType === 1 && 'mingxi-active'].join(' ')}></li>
+		<div className={ this.state.isError && 'box-color' }>hello world</div>
+		// 使用三元运算符
+		<div className={ this.state.isShow ? 'box-show' : 'box-hide' }>hello world</div>
+
+		<div className={ this.state.isShow ? 'box-color' : `${'box-color'} ${'box-hide'}` }>hello world</div>
+
+		<div style={ this.state.isShow ? {display: 'inline-block'} : { display: 'none'} }>hello world</div>
+
+	// 绑定style
+	<h1 style={{ color: this.context.themeColor }}>React.js 小书标题</h1>
+
+移动端适配方案
+	lib-flexible弹性布局方案(淘宝的)   
+		https://github.com/amfe/article/issues/17
+		宽高等值计算公式： 需转换的px值 / 设计稿宽度px值 * 10  (rem)
+
+		npm 安装 lib-flexible
+		app.js 中引入 import 'lib-flexible';
+		设置样式时 距离值使用计算公式得出 单位为rem  保留小数点后六位
+
+lodash
+	isUndefined()
+
+在react中使用图片
+	先导入 import dropIconRed from 'assets/images/cloudBsPlan/dropDownRed.svg';
+	使用 <img src={dropIconRed}/>
+
+SCSS
+	https://www.sass.hk/guide/
+	@mixin  @include
+		声明： @mixin button { font-size: 1em; padding: 0.5em 1.0em; text-decoration: none; color: #fff; } 
+		引用： @include button;	
+
+使用react props传过来的参数：（可以像以下先将参数从Props中提取出来 注意：data、ax_field等变量名与父组件那边绑定的名字是同样的
+	<BarChart data={bar_data} field={{  'ax_field':'time',  'ax_val':'value',  'ax_name':'name',  'flag':'plan_implement',  'color':['#E55347','#F0944C']}}config={{width:'100%',height: '200px',}} />
+
+	const { data } = this.props;
+	const { ax_field, ax_name, ax_val, color, flag,padding=[24, 0, 24, 24] } = this.props.field;
+
+	通过props传过来的参数进行拼接得出属性值：
+	<canvas style={{width, height, margin}} id={`bar_${flag}`}></canvas>
+
+react生命周期 
+	https://www.jianshu.com/p/514fe21b9914
+	组件初始化(initialization)阶段  ->  constructor()
+		super(props);  // 调用基类的构造方法( constructor() ), 也将父组件的props注入给子组件，功子组件读取(组件中props只读不可变，state可变)
+		// 定义this.state的初始内容
+		// 做一些组件的初始化工作
+	组件的挂载(Mounting)阶段(分三个时期)
+		第一个时期： componentWillMount() -> 组件挂载到DOM前调用，且只会被调用一次(很少使用)
+		第二个时期： render() -> 根据组件的props和state,return 一个React元素,不负责组件实际渲染工作,之后由React自身根据此元素去渲染出页面DOM
+		第三个时期： componentDidMount() -> 组件挂载到DOM后调用，且只会被调用一次
+	组件的更新(update)阶段
+		react组件更新机制: setState引起的state更新或父组件重新render引起的props更新，更新后的state和props相对之前无论是否有变化，都将引起子组件的重新render
+		componentWillReceiveProps
+		shouldComponentUpdate
+		componentWillUpdate
+		render
+		componentDidUpdate
+	卸载阶段
+		componentWillUnmount() {
+			// 给事件解绑	removeEventListener
+			// 清除定时器
+		}
+
+redux
+	核心问题：
+		模块（组件）之间可以共享数据，也可以改数据。
+		但是我们约定，这个数据并不能直接改，你只能执行某些我允许的某些修改，而且你修改的必须大张旗鼓地告诉我
+
+
+11.22
+vuex的简单使用 参照RWS项目
+	PS：vuex在页面刷新后数据会被清除 如果想解决这个问题 就将vuex的数据存进localstorage
+
+点击登入按钮后跳转页面
+	实际的方法：
+		在click事件绑定的函数里设置
+		this.$router.push({
+		  path: '/decrypt'
+		});
+	最开始采用使用window.location进行页面的跳转，这样的问题在于
+		这样跳转回导致页面刷新 之后vuex的数据就会被清除
+		会出现导航栏在加载了 但页面还停留在上一个页面 直到新的页面加载完 窗口中才显示新的页面 整体用户的体验不好
+
+11.23
+	v-for="(title,index) in titleList"
+		v-for的顺序很重要 没写对就会出很多问题 先写item再写index
+
+	当出现多个变量时，可以如下拼接
+		<el-form label-position="left" inline class="content-list-expand">
+              <el-form-item 
+                v-for="(text,index) in titleList" 
+                :key="index" 
+                :label="text"
+              >
+                <span>{{props.row[text]}}</span>
+        </el-form-item>

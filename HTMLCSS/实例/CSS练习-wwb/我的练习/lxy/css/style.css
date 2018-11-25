@@ -1,0 +1,144 @@
+* {
+	margin: 0; padding: 0;
+}
+body {
+	font-size: 14px; font-family: 微软雅黑; color: #666;
+}
+ul {
+	list-style-type: none;
+}
+#wrapper {
+	width: 1000px; margin: 0 auto;
+}
+#header {
+	height: 100px; background-color: #E5E8E9;
+}
+#logo {
+	float: left; width: 350px; height: 100px; background: url(../images/logo.png) no-repeat center center #00714F;
+}
+#sname {
+	float: left; width: 350px; height: 100px; background: url(../images/en_sname.png) no-repeat 10px 50px;
+}
+#role {
+	float: right: width: 300px; height: 100px;
+}
+#role ul {
+	float: right; margin-right: 10px; margin-top: 10px; border: 1px solid #C1C1C1; border-right: none; background-color: #fff;
+}
+#role ul li {
+	float: left; padding: 5px 10px; border-right: 1px solid #C1C1C1;
+}
+#role ul li a {
+	text-decoration: none; color: #666;
+}
+#nav {
+	height: 32px; background-color: #575453;
+}
+#nav ul li {
+	float: left; position:relative;
+}
+#nav ul li a {
+	display: block; width: 100px; height: 32px; line-height: 32px; color: #fff; text-decoration: none; text-align: center;
+}
+#nav ul li ul {
+	display: none;
+}
+#nav ul li:hover a { 
+	background-color: #00714F;
+}
+#nav ul li:hover ul { 
+	display: block; position: absolute; top: 32px; left: 0; width: 100px;
+}
+#nav ul li:hover ul li a {
+	display: block; background-color: #00714F; color: #fff;
+}
+#nav ul li:hover ul li a:hover {
+	background-color: #CEDD9A; color: #666;
+}
+#slide {
+	height: 240px;
+}
+#content {
+	height: 330px;
+}
+.cl {
+	float: left; width: 780px; height: 330px; background-color: #CEDD9A;
+}
+.list_topic li {
+	float: left;
+}
+.list_topic li a {
+	display: block; width: 130px; height: 30px; line-height: 30px; text-align: center; color: #fff; text-decoration: none;
+}
+.list_topic li.i1 {
+	background-color: #84A903;
+}
+.list_topic li.i2 {
+	background-color: #5774B8;
+}
+.list_topic li.i3 {
+	background-color: #E67F06;
+}
+.list_topic li.i4 {
+	background-color: #84048C;
+}
+.list_topic li.i5 {
+	background-color: #37B2DB;
+}
+.list_topic li.i6 {
+	background-color: #B4023E;
+}
+.list_item {
+	margin-left: 40px; margin-top: 55px; width: 700px;
+}
+.list_item li {
+	height: 25px; line-height: 25px; background: url(../images/dot.png) no-repeat left center; padding-left: 20px;
+}
+.list_item li a {
+	color: #666; text-decoration: none;
+}
+.list_item li a:hover {
+	color: #ff0000; text-decoration: underline;
+}
+.list_item li span {
+	float: right; color: #a0a0a0;
+}
+.cr {
+	float: right; width: 215px; height: 330px;background-color: #E5E8E9;
+}
+.login {
+	width: 215px;
+}
+.login h3 {
+	width: 200px; height: 30px; color: #fff; font-weight: normal; background-color: #585453; line-height: 30px; padding-left: 15px; font-size: 14px;
+}
+.login_form {
+	width: 180px; margin: 10px 0 0 15px;
+}
+.login_form li {
+	height: 30px;
+}
+.login_form span {
+	margin-right: 10px;
+}
+.login_form a {
+	color: #037050;
+}
+.my_input {
+	width: 120px; height: 18px; border: 1px solid #C1C1C1; background: url(../images/input_bg.jpg) repeat-x left top; padding: 2px 0 0 5px; color: #666
+} 
+.my_btn {
+	width: 80px; height: 23px; border: 1px solid #C1C1C1; background: url(../images/button_bg.jpg) repeat-x left top; line-height: 22px; font-family: 微软雅黑
+}
+.special {
+	width: 215px; margin-top: 10px;
+}
+.special h3 {
+	width: 200px; height: 30px; color: #fff; font-weight: normal; background-color: #585453; line-height: 30px; padding-left: 15px; font-size: 14px;
+}
+.special li {
+	height: 63px; margin-top: 10px;
+}
+#footer {
+	height: 80px; background-color: #585453; text-align: center; color: #fff; padding-top: 10px;
+}

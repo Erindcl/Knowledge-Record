@@ -1,0 +1,101 @@
+
+引用外部文件
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+
+如果把链接的 target 属性设置为 "_blank"，该链接会在新窗口中打开
+	<a href="http://www.w3school.com.cn/" target="_blank">Visit W3School!</a>
+
+替换文本属性alt 在浏览器无法载入图像时，替换文本属性告诉读者她们失去的信息
+	<img src="boat.gif" alt="Big Boat">
+
+<map>标签 area 元素永远嵌套在 map 元素内部。area 元素可定义图像映射中的区域
+	<img src="planets.jpg" border="0" usemap="#planetmap" alt="Planets" />
+	<map name="planetmap" id="planetmap">
+  		<area shape="circle" coords="180,139,14" href ="venus.html" alt="Venus" />
+  		<area shape="circle" coords="129,161,10" href ="mercur.html" alt="Mercury" />
+  		<area shape="rect" coords="0,0,110,260" href ="sun.html" alt="Sun" />
+	</map>
+
+<area>标签可选属性
+	属性	值	        描述
+	coords	坐标值	    定义可点击区域（对鼠标敏感的区域）的坐标。
+	href	URL	        定义此区域的目标 URL。
+	nohref	nohref	    从图像映射排除某个区域。
+	shape	default		定义区域的形状。
+			rect
+			circ
+			poly
+	target	_blank		规定在何处打开 href 属性指定的目标 UR
+			_parent
+			_self
+			_top
+
+定义有序列表
+	<ol type="a">
+	 <li>苹果</li>
+	 <li>桔子</li>
+	</ol> 
+
+同一窗口中同时显示几个页面
+	<html>
+	<frameset cols="25%,50%,25%"> 垂直方向三个文档显示
+	/* <frameset rows="25%,50%,25%"> 水平方向三个文档显示*/
+	  <frame src="/example/html/frame_a.html">
+	  <frame src="/example/html/frame_b.html">
+	  <frame src="/example/html/frame_c.html">
+	</frameset>
+	</html>	
+    垂直水平方向混合框架结构
+	<html>
+		<frameset rows="50%,50%">
+	  		<frame src="/example/html/frame_a.html">
+			<frameset cols="25%,75%">
+				<frame src="/example/html/frame_b.html">
+				<frame src="/example/html/frame_c.html">
+			</frameset>
+		</frameset>
+	</html>
+
+HTML 头部元素
+	<base> 标签为页面上的所有链接规定默认地址或默认目标（target）
+		<head>
+			<base href="http://www.w3school.com.cn/images/" />
+			<base target="_blank" />
+		</head>
+		注：规定页面的链接都在新的窗口打开，无论a标签上有无设置target="_blank"
+	<link> 标签定义文档与外部资源之间的关系
+		<link rel="stylesheet" type="text/css" href="mystyle.css" />
+		定义标签栏本网页显示的图标
+			<link rel='icon' href='img/logo.ico' type='image/x-ico' />
+		<meta> 元素可提供有关页面的元信息（meta-information），比如针对搜索引擎和更新频度的描述和关键词。
+			content 属性 必须的 定义与 http-equiv 或 name 属性相关的元信息
+			可选属性
+				http-equiv	content-type  	把 content 属性关联到 HTTP 头部
+							expires 
+							refresh 
+							set-cookie 
+				name		author			把 content 属性关联到一个名称
+							description
+							keywords
+							generator
+							revised
+							others
+				scheme		some_text		定义用于翻译 content 属性值的格式。
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">	
+			5秒后重定向到给定网址
+			  <meta http-equiv="Refresh" content="5;url=http://www.w3school.com.cn" />
+字符实体
+	如：空格  &nbsp;   
+网址URL 
+	scheme://host.domain:port/path/filename
+	常见scheme
+		http	超文本传输协议		以 http:// 开头的普通网页。不加密。
+		https	安全超文本传输协议	安全网页。加密所有信息交换。
+		ftp	    文件传输协议		用于将文件下载或上传至网站。
+		file	 					您计算机上的文件。    
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+JS高程测试题
+
+第三章
+	JS基本数据类型？复杂数据类型？
+	typeof操作符的使用 检测XX返回XX？
+	null == undefined ?
+	如何将其余类型的值转化为布尔类型的值？   Boolean(val)
+	判断某个数组是否为有穷数值？             isFinite(num)
+	NaN == NaN ?
+	判断一个值能否转化为数值？               isNaN(val)
+	将非数值转换为数值的函数？               Number(val) parseInt(str) parseFloat(str)
+	将值转化为字符串？						 val.toString()
+	自定义对象？                             new Object()
+	检测给定属性是否存在与当前对象实例属性中？       obj.hasOwnProperty(proName)
+	检测传入对象是否存在于与当前对象原型中？             subObj.isPrototypeOf(supObj)
+	返回对象的字符串表示和数值表示？                 obj.toString() obj.valueOf()
+	"23" < "3" ?  "23" < 3 ?  NaN > 3 ?  NaN <= 3 ?
+	"55" == 55 ?  "55" === 55 ?  全等与相等的区别？
+	枚举对象属性？                           for (var property in obj) {...}
+	with语句的用法以及作用？
+	定义函数时不写参数名，调用时直接写入参数，是如何使用操作的？     参数arguments数组
+	ECMAScript没有重载，当同时定义了两个名字相同的函数时，调用函数时调用执行的是哪一个函数？原因是什么？
+
+第四章
+	复制变量时，复制基本类型变量的值与引用类型变量的值有什么区别？
+	函数参数传递时，引用类型的参数与基本类型的参数传递之间又存在什么区别？
+	如何检测某种对象是哪种类型的对象？               colors instanceOf Array
+	什么是变量对象？作用域链的作用？作用域中变量访问的过程是怎样的？
+	for语句中利用var创建的变量i是存在哪个执行环境中的？
+	如果变量没有用var声明就赋值，那么这个变量存在哪个运行环境中？
+	垃圾回收机制原理？如何手动解除引用？
+
+第五章
+	常用的引用类型有哪些？                    
+				Object Array Date RegExp Function (基本包装类型：String Boolean Number)
+	Object如何表示？ (两种)
+	如何访问对象属性？(两种)
+	如何检测某变量是否是数组？
+				val instanceOf Array
+				Array.isArray(val)
+	数组转化为字符串的方法及用法？(4)
+				toString() valueOf() toLocaleString() join()
+	数组的栈方法-从数组后端添加或参数元素？
+				push()  pop()
+	在数组的前端添加或删除元素的方法？
+				shift() unshift()
+	数字的重排序和反转的方法？
+				sort(function) reverse()
+	数组的操作方法？(3)
+				concat() slice() splice() 
+	数组的位置方法？
+				indexOf() lastIndexOf() 
+	数组的迭代方法？
+				every() some()  filter() map() forEach()
+	数组的归并方法？
+				reduce() reduceRight() 
+	将指定日期转化为毫秒数？(3)
+				Date.parse() Date.UTC() new Date() 
+	获取当前时间的毫秒数？
+				Date.now() 或 +new Date()
+	获取日期的年、月、日、时、分、秒？
+	RegExp类型中标志有哪些？
+				i g m
+	RegExp的实例属性与方法有哪些？(见书P105)
+	RegExp构造函数的属性？
+	
+
+
+
+
+
