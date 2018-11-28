@@ -148,3 +148,121 @@ export default mirrorCreator([
 import actionTypes from 'actionTypes';
 dispatch({ type: actionTypes.SOME_ACTION_TYPE });
 ```
+
+
+
+#### 实例：[源码传送门](https://github.com/Erindcl/blog-react-app)
+src/pages/global/reducer.js
+
+```
+import { globalType } from './constant';
+
+const initialState = {
+  startNum: [14,5,18,6,9]
+};
+
+const globalReducer = (state = initialState, action) => {
+  const { type, plyload } = action;
+  switch (type) {
+    case globalType.SET_START_NUM:
+      return Object.assign({}, state, {
+        startNum: plyload
+      });
+    default: 
+      return state;
+  }
+}
+
+export default globalReducer;
+```
+
+src/pages/global/action.js
+
+```
+import { globalType } from './constant';
+
+export const startNum = (data) => ({
+  type: globalType.SET_START_NUM,
+  payload: data
+})
+```
+
+src/pages/global/constant.js
+
+```
+import mirror from 'mirror-creator';
+export const globalType= mirror([
+  'SET_START_NUM'
+],'global/')
+```
+
+src/pages/global/index.js
+
+```
+import global from './reducer';
+
+const appReducer = {
+  global
+};
+	
+export default appReducer;
+```
+
+src/store/index.js
+
+```
+import { createStore } from 'redux';
+import globalReducer from '../pages/global/reducer';
+import { composeWithDevTools } from 'redux-devtools-extension'; // 导入后才能使用redux工具（Chrome扩展程序）
+
+const store = createStore(
+  globalReducer,
+  composeWithDevTools()
+)
+export default store;
+```
+
+src/index.js
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store'
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render( 
+  <Provider store={ store }>
+    <App />
+  </Provider>, 
+  document.getElementById('root')
+);
+```
+
+组件中使用：
+src/pages/blogContent/index.js
+```
+import { connect } from "react-redux";
+class BlogContent extends Component {
+    componentDidMount() {
+        this.setState({start:this.props.start});  // this.props.start获取redux
+        const action = { type: 'SET_START_NUM', plyload: [8,7,4,5,3] };
+        this.props.startNum(action);  // 根据新的值修改redux
+    }
+    ......
+}
+const mapStateToProps = (state) => {
+  return ({
+    start: state.startNum
+  })
+}
+const mapDispatchToProps = (dispatch, ownProps) => {  // 如果不在connect中传入这个函数，则上述组件的this.props中会含有dispatch()这个函数，直接使用这个函数给函数传入一个新的action也可以达到相同的效果
+  return {
+    startNum: (...args) => dispatch(...args)   // 此时的startNum函数其实就相当于dispatch函数的别名
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(BlogContent);
+```
+
