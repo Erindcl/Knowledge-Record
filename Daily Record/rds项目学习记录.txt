@@ -1,0 +1,95 @@
+
+样式的使用：
+  .main { ... }
+
+  import styles from './Login.less';
+  <div className={styles.main}></div>
+
+
+React-classnames库
+  react原生动态添加多个className会报错：
+    import style from './style.css'
+    <div className={style.class1 style.class2}</div>  // -> error
+
+  想要渲染出效果：
+    <div class='class1 class2'></div> 
+  则使用这个库
+
+  安装：
+    npm install classnames --save
+  使用：
+    import classnames from 'classnames'
+
+    <div className=classnames({
+        'class1': true,
+        'class2': true
+        )>
+    </div>
+    或者：
+    const clsString = classNames('class1', 'class2');
+    <div className={clsString}></div>
+    注：使用第一种方式可以动态设置样式名
+
+
+页面中请求数据：
+  getBackup = () => {  // 在本函数中就不用特别声明一个变量来储存this指代的对象
+    let _this = this;  // 注意this的指向问题  加不加视情况而定  （如果函数是直接在初始化页面的时候调用则不用提出this，但如果是函数被绑定到了某个元素的事件上并且需要请求后台数据，此时就需要用新的变量存储this指代的对象）
+    _this.props.dispatch({   // 经过了connect了之后 props中会含有dispatch这个函数
+      type:"dashboard/fetchBackup",    // action中的type 表明此时要做的是怎么样的操作
+      callback:(data)=>{
+        _this.setState({backupData:[{name:"备份中",value:data.running},{name:"备份失败",value:data.error},{name:"备份成功",value:data.success}]})
+      }
+    });
+  }
+
+  editFtp = (item) => {  // 此函数的调用 <a onClick={() => this.editFtp(record)}>修改</a>
+    let _this = this  // 此处就需要使用新的变量储存this指代的对象
+    _this.props.dispatch({
+      type: "system/getFtpById",
+      payload: { id: item.id },
+      callback: function (res) {
+        //  this -> undefine
+        // _this -> object
+        _this.setState({ visible: true, ftpModalType: "edit", FtpId: item.id })
+        _this.updateFormRef && _this.updateFormRef.props.form.setFieldsValue({
+          ftpName: res.data.ftpName
+        })
+      }
+    })
+  }
+
+
+
+
+弹框的用法：
+    Modal.confirm({
+      title: '删除租户',
+      content: '确定要删除当前租户么？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk:() => {
+        this.props.dispatch({
+          type:"rdsUser/delTenantUser",
+          payload,
+          callback:res => {
+            this.refresh();        
+          }
+        })  
+      },
+      onCancel() {},
+    });
+
+
+
+表单组件的用法：
+  定义表单组件：
+    const AddTenantForm = Form.create()( 
+      class FormObj extends Component {  
+        render(){ ... }
+      }
+    );
+  
+  使用组件：
+    <AddTenantForm wrappedComponentRef={(form) => this.formRef = form} {...props} />
+    this.formRef -> 即为FormObj 并且其自带this.props.form属性，通过该属性可以实用性相应的api操作表单
+    例子：this.formRef.props.form.getFieldsValue([name]) 获取某指定表单控件的值（更多api见https://ant.design/components/form-cn/#components-form-demo-validate-other）
