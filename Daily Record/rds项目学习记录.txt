@@ -81,7 +81,7 @@ React-classnames库
 
 
 
-表单组件的用法：
+表单组件的用法：（使用了antdesign）
   定义表单组件：
     const AddTenantForm = Form.create()( 
       class FormObj extends Component {  
@@ -93,3 +93,20 @@ React-classnames库
     <AddTenantForm wrappedComponentRef={(form) => this.formRef = form} {...props} />
     this.formRef -> 即为FormObj 并且其自带this.props.form属性，通过该属性可以实用性相应的api操作表单
     例子：this.formRef.props.form.getFieldsValue([name]) 获取某指定表单控件的值（更多api见https://ant.design/components/form-cn/#components-form-demo-validate-other）
+
+
+
+react中ref的使用：将ref属性设置为一个回调函数（不管是在react项目还是vue项目中都不建议适用id值来获取dom元素，都改为适用ref来获取元素）
+  <ReactEcharts ref={(e) => { this.echarts_react = e; }} />  // 此处的e即为ReactEcharts这一组件元素
+  
+  该回调函数执行的时机为：
+    组件被挂载后，回调函数被立即执行，回调函数的参数为该组件的具体实例。
+    组件被卸载或者原有的ref属性本身发生变化时，回调也会被立即执行，此时回调函数参数为null，以确保内存泄露。
+  注意：无法通过ref来获取无状态组件实例。上述例子就是在无状态组件中使用ref的用法，当然上述方法也同样在有状态的组件中适用
+
+  在有状态组件中使用ref的例子如下：（即不能通过此种方法获取无状态组件）
+    <input ref="input" />  即可通过 this.refs.input.value 直接获取input元素的值
+
+  ref提供了一种对于react标准的数据流不太适用的情况下组件间交互的方式，例如管理dom元素focus、text selection以及与第三方的dom库整合等等。 但是在大多数情况下应该使用react响应数据流那种方式，不要过度使用ref。
+  另外，在使用ref时，不用担心会导致内存泄露的问题，react会自动帮你管理好，在组件卸载时ref值也会被销毁。
+  不要在组件的render方法中访问ref引用，render方法只是返回一个虚拟dom，这时组件不一定挂载到dom中或者render返回的虚拟dom不一定会更新到dom中。
