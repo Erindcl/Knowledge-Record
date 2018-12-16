@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>报纸的订阅与发布</title>
+</head>
+<body>
+	<script type="text/javascript">
+		const PaperPublisher = {
+		  subscribers: {
+				dailyPaper: [],
+				monthlyPaper: [],
+				all: []
+			},
+			subscribe (newSubscriberFn, type) {
+				let type = type ? type : 'all';
+				this.subscribers[type].push(newSubscriberFn);
+			},
+			unsubscribe (subscriberFn, type) {
+				let type = type ? type : 'all',
+						index = 0;
+				for (let i = 0, len = this.subscribers[type].length; i < len; i++) {
+					if (this.subscribers[type][i] == subscriberFn) {
+						index = i;
+						break;
+					}
+				}
+				this.subscribers[type].splice(index,1);
+			},
+			publish (type,value) {
+				for (let i = 0, len = this.subscribers[type].length; i < len; i++) {
+					this.subscribers[type][i](value);
+				}
+				for (let i = 0, len = this.subscribers.all.length; i < len; i++) {
+					this.subscribers.all[i](value);
+				}
+			},
+			publishDailyPaper () {  // 发布日报
+				this.publish('dailyPaper','日报的内容');
+			},
+			publishMonthlyPaper () {  // 发布月报
+				this.publish('monthlyPaper','月报的内容');
+			}
+		}
+
+		const XiaoWangSubscriber = {
+			subscriberFn (value) {
+				console.log(`我是小王，正在读 ${value}`);
+			}
+		}
+
+		const XiaoLiSubscriber = {
+			subscriberFn (value) {
+				console.log(`我是小李，正在读 ${value}`);
+			}
+		}
+
+		const XiaoZhaoSubscriber = {
+			subscriberFn (value) {
+				console.log(`我是小赵，正在读 ${value}`);
+			}
+		}
+
+		PaperPublisher.subscrib(XiaoWangSubscriber.subscriberFn,'dailyPaper');
+		PaperPublisher.subscrib(XiaoLiSubscriber.subscriberFn,'monthlyPaper');
+		PaperPublisher.subscrib(XiaoZhaoSubscriber.subscriberFn);
+
+		PaperPublisher.publishDailyPaper();
+		PaperPublisher.publishMonthlyPaper();
+
+		PaperPublisher.unsubscribe(XiaoWangSubscriber.subscriberFn,'dailyPaper');
+	</script>
+</body>
+</html>
