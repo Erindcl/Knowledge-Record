@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>搜索高亮</title>
+    <style>
+        #main {
+            display: flex; 
+            width: 300px; 
+            flex-direction: column;
+        }
+        #ul {
+            width: 200px;
+            padding: 10px 0px;
+            border: 1px solid #ddd;
+        }
+        #ul li {
+            width: 100%;
+            list-style: none;
+            height: 30px;
+            font-size: 14px;
+            line-height: 30px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <input id="sarch" style="width: 200px" />
+        <ul id="ul"></ul>
+    </div>
+
+    <script>
+        window.onload = () => {
+            let input = document.getElementById('sarch');
+            let ul = document.getElementById('ul');
+            let list = ['我不可爱是个假命题', '我是真的可爱', '我十分的可爱', '我就是可爱', '我可爱并且不接受反驳']
+            input.addEventListener('change', (e) => {
+                let value = e.target.value;
+                let contentList = value && value != '' ? list.filter(item => { return item.indexOf(value) != -1 }) : [];
+                let ulContent = '';
+                contentList.forEach(item => {
+                    // let index = item.indexOf(value);
+                    // let beforS = item.slice(0,index);
+                    // let curr = item.slice(index, index + value.length);
+                    // let afterS = item.slice(index + value.length);
+                    // ulContent += `<li>${beforS}<span style="color:red">${curr}</span>${afterS}</li>`;
+
+                    let realS = item.replace(value, `<span style="color:red">$1</span>`); // $1 -> value
+                    ulContent += `<li>${realS}</li>`;
+                })
+                ul.innerHTML = ulContent;
+            })
+        };
+    </script>
+</body>
+
+</html>
