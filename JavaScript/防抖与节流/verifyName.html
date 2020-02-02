@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>名称重复校验（防抖与节流）</title>
+</head>
+
+<body>
+    <input id="input" style="width: 200px; height: 20px; line-height: 20px; padding: 5px 10px;" />
+    <script>
+        window.onload = function () {
+            var oInput = document.getElementById('input');
+            var throttleVerifyName = throttle(verifyName, 500);
+            var debounceVerifyName = debounce(verifyName, 500, true);
+            var tADVerifyName = throttle(debounceVerifyName, 500);
+            var dATVerifyName = debounce(throttleVerifyName, 500);
+
+            var timer = null;
+            var previous = 0;
+
+            oInput.addEventListener('keyup', function (e) {
+                // 直接请求校验
+                // verifyName(e);
+
+                // 添加防抖
+                // if (timer) {
+                //     clearTimeout(timer);
+                // } else {
+                //     verifyName(e);
+                // }
+                // timer = setTimeout(() => {
+                //     clearTimeout(timer);
+                //     timer = null;
+                //     verifyName(e);
+                // }, 500);
+
+                //直接写 连续输入：第一次是 立马执行 中间隔规定时间范围内执行一次 输入完毕停留一定时间范围请求（定时器）
+                var now = +new Date();
+                if (previous && (now - previous) > 500) {
+                    verifyName(e);
+                    previous = now;
+                } else {
+                    if (timer) {
+                        clearTimeout(timer);
+                    } else {
+                        verifyName(e);
+                        previous = now;
+                    }
+                    timer = setTimeout(() => {
+                        clearTimeout(timer);
+                        timer = null;
+                        verifyName(e);
+                        previous = now;
+                    }, 500);
+                }
+
+                // 一些尝试
+                // 添加节流函数后 再请求校验  输入完成后不会请求输入的内容 下一次输入的时候才请求上次输入的内容
+                // throttleVerifyName(e);
+
+                // 添加防抖函数后 有提升 但是当我一直不断输入，每两次之间的输入间隔都小于自己设置的等待范围，那么着长段时间就一直不会触发请求函数
+                // debounceVerifyName(e);
+
+                // 添加防抖函数后 在加上节流函数
+                // tADVerifyName(e);
+
+                // 添加节流函数后 在加上防抖函数
+                // dATVerifyName(e);
+                
+            });
+
+            function verifyName(e) {
+                var text = e.target.value;
+                console.log('校验内容:', text);
+            }
+
+            function throttle(callback, wait) {
+                var previous = 0;
+                return function (...args) {
+                    var now = +new Date();
+                    if (!previous || (now - previous) > wait) {
+                        callback.apply(this, args);
+                        previous = now;
+                    }
+                }
+            }
+
+            function debounce(callback, wait, immediate) {
+                var timer = null;
+                return function (...args) {
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                    // 添加 第一次触发立即执行 的判断
+                    if (immediate && !timer) {
+                        callback.apply(this, args);
+                    }
+                    timer = setTimeout(() => {
+                        clearTimeout(timer);
+                        timer = null;
+                        callback.apply(this, args);
+                    }, wait);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
