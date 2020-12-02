@@ -1,1 +1,49 @@
-<mxfile host="app.diagrams.net" modified="2020-10-12T02:22:09.811Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" version="13.7.5" etag="_QedBvnWuWOx3K2LtxWQ" type="github"><diagram id="hzMvXrWPKINcwSGzb2Ke">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2020-12-02T02:07:04.167Z" agent="5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36" etag="kQZdeCa-Cb87XlktIfYM" version="13.8.0" type="github">
+  <diagram id="hzMvXrWPKINcwSGzb2Ke" name="Page-1">
+    <mxGraphModel dx="946" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=classicThin;endFill=0;" edge="1" parent="1" source="MVlj1FeLl04IYw_bSsnr-2" target="MVlj1FeLl04IYw_bSsnr-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-13" value="发布新的版本，并同步团队成员&lt;br&gt;（owner）" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="MVlj1FeLl04IYw_bSsnr-10">
+          <mxGeometry x="-0.1" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-2" value="&lt;font style=&quot;font-size: 14px&quot;&gt;temp_release&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;sketch=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="240" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=classicThin;endFill=0;dashed=1;" edge="1" parent="1" source="MVlj1FeLl04IYw_bSsnr-3" target="MVlj1FeLl04IYw_bSsnr-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-12" value="测试通过，新建临时发布分支&lt;br&gt;（owner）" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="MVlj1FeLl04IYw_bSsnr-9">
+          <mxGeometry x="-0.0333" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-3" value="&lt;font style=&quot;font-size: 14px&quot;&gt;dev&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;sketch=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="110" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;endArrow=classicThin;endFill=0;" edge="1" parent="1" source="MVlj1FeLl04IYw_bSsnr-4" target="MVlj1FeLl04IYw_bSsnr-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-4" value="&lt;font style=&quot;font-size: 14px&quot;&gt;tag&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;sketch=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="370" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=classicThin;endFill=0;" edge="1" parent="1" source="MVlj1FeLl04IYw_bSsnr-5" target="MVlj1FeLl04IYw_bSsnr-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-11" value="自测通过，提MR&lt;br&gt;（指派给owner）" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="MVlj1FeLl04IYw_bSsnr-8">
+          <mxGeometry x="-0.0733" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MVlj1FeLl04IYw_bSsnr-5" value="&lt;span style=&quot;font-size: 14px&quot;&gt;feat/hotfix&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;sketch=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="240" width="140" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
