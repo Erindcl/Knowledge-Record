@@ -341,7 +341,7 @@ function mergeData (imageData, watermarkData, ctx, color) {
 
 这样我们就可以将水印隐藏在普通的图片中了。
 
-在实际应用中，隐藏水印使用的计算方法是更加复杂的方法，例如利用傅里叶变化公式，这里就不做过多阐述了，感兴趣的同学们可以自行去了解。（所有示例代码见[github]()）
+在实际应用中，隐藏水印使用的计算方法是更加复杂的方法，例如利用傅里叶变化公式，这里就不做过多阐述了，感兴趣的同学们可以自行去了解。（所有示例代码见[github](https://github.com/Erindcl/Knowledge-Record/tree/master/Others/watermark)）
 
 ## 附录
 
