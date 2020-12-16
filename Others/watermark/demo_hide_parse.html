@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Parse Hide Watermark</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="hide_canvas" width="440" height="300"></canvas>
+    <script>
+        window.onload = () => {
+            //新建img对象 
+            let img = new Image();
+            img.width = 440;
+            img.height = 300;
+            img.src = './hide-watermark_01.png';
+
+            // img加载完成
+            img.onload = () => {
+                //准备canvas
+                let canvas = document.getElementById("hide_canvas");
+                let context = canvas.getContext("2d");
+                // 绘制图片
+                context.drawImage(img, 0, 0);
+                // 获取指定区域的canvas像素信息
+                imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+                console.log(imageData);
+                parsingData(imageData, context);
+            }
+
+            function parsingData (imageData, ctx) {
+                var data = imageData.data;
+                for(var i = 0; i < data.length; i++){
+                    if(i % 4 === 2){
+                        // B 分量
+                        if(data[i] % 2 === 1){
+                            data[i] = 255;
+                        } else {
+                            data[i] = 0;
+                        }
+                    } else if(i % 4 === 3){
+                        // A 分量不做处理
+                        continue;
+                    } else {
+                        // 去除其余分量干扰信息
+                        data[i] = 0;
+                    }
+                }
+                // 将结果绘制到画布
+                ctx.putImageData(imageData, 0, 0);
+            }
+        };
+    </script>
+</body>

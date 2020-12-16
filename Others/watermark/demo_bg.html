@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bg Watermark</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .bg-watermark {
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            pointer-events: none;
+            background-repeat: repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>我是标题</h1>
+    <p>我是文本内容</p>
+    <script>
+        window.onload = () => {
+            // 创建带有水印的 canvas
+            const angle = -20;
+            const canvas = document.createElement('canvas');
+            canvas.width = 340;
+            canvas.height = 200;
+            const context = canvas.getContext('2d');
+            context.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            context.font = `14px microsoft yahei`;
+            context.rotate(-20 * Math.PI / 180);
+            context.fillText('bg-watermark', 100, 100);
+
+            // 将 canvas 设置为 div 元素的背景图片 再添加进 body
+            const watermark = document.createElement('div');
+            watermark.className = 'bg-watermark';
+            watermark.setAttribute('key', +new Date());
+            watermark.style.backgroundImage = `url(${canvas.toDataURL()})`;
+            document.body.appendChild(watermark);
+
+            /* 
+            **   防御节点变动
+            */
+            // 配置需要观察的变动
+            const config = { attributes: true, childList: true, subtree: true };
+            // 变动时执行的回调函数
+            const callback = function (mutationsList, observer) {
+                for (let mutation of mutationsList) {
+                    // 获取移除的节点
+                    mutation.removedNodes.forEach(function (item) {
+                        if (item === watermark) {
+                            // 设置 key 区分新旧节点
+                            watermark.setAttribute('key', +new Date());
+                            document.body.appendChild(watermark);
+                        }
+                    });
+                }
+            };
+            // 监听元素
+            const targetNode = document.body;
+            // 创建一个观察器实例并传入回调函数
+            const observer = new MutationObserver(callback);
+            // 以上述配置开始观察目标节点
+            observer.observe(targetNode, config);
+        };
+    </script>
+</body>

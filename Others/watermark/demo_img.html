@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Img Watermark</title>
+</head>
+
+<body>
+    <div>
+        <canvas id="img_canvas" width="440" height="300" ></canvas>
+    </div>
+    <script>
+        window.onload = () => {
+            //新建img对象 
+            let img = new Image();
+            img.width = 440;
+            img.height = 300;
+            img.src = './merryChristmas.jpg';
+
+            // img加载完成
+            img.onload = () => {
+                //准备canvas
+                let canvas = document.getElementById("img_canvas");
+                let context = canvas.getContext("2d");
+                // 绘制图片
+                context.drawImage(img, 0, 0);
+                // 绘制水印
+                context.font = '12px microsoft yahei';
+                context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                context.fillText('@Erin浅伊', 380, 290);
+            }
+        };
+    </script>
+</body>
